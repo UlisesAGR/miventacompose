@@ -1,4 +1,4 @@
-package com.miventa.compose.mobile
+package com.miventa.compose.mobile.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

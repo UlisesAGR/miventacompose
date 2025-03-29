@@ -1,3 +1,8 @@
+/*
+ * build.gradle.kts - Module app
+ * Modified by Ulises Gonzalez
+ * Copyright (c) 2025. All rights reserved
+ */
 pluginManagement {
     repositories {
         google {
