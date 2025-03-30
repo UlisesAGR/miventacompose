@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ - ic_concave.xml
+ - Created by Ulises Gonzalez on 23/02/25
+ - Copyright (c) 2025. All rights reserved
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@android:color/white" />
+
+    <size
+        android:width="8dp"
+        android:height="16dp" />
+
+    <corners
+        android:bottomRightRadius="10dp"
+        android:topRightRadius="10dp" />
+
+</shape>

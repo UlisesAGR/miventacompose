@@ -1,3 +1,8 @@
+<!--
+ - string.xml - english
+ - Created by Ulises Gonzalez
+ - Copyright (c) 2025. All rights reserved
+-->
 <resources>
-    <string name="app_name">Mi venta</string>
+    <string name="example">Example</string>
 </resources>
