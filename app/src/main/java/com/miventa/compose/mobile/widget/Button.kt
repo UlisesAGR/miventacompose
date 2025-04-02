@@ -38,7 +38,7 @@ fun ButtonPrimary(
         onClick = { onClick() },
     ) {
         Text(
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleSmall,
             text = text,
         )
     }
@@ -57,7 +57,28 @@ fun ButtonSecondary(
         onClick = { onClick() },
     ) {
         Text(
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleSmall,
+            text = text,
+        )
+    }
+}
+
+@Composable
+fun ButtonPrimaryEnable(
+    modifier: Modifier = Modifier,
+    text: String,
+    enable: Boolean,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(60.dp),
+        onClick = { onClick() },
+        enabled = enable,
+    ) {
+        Text(
+            style = MaterialTheme.typography.titleSmall,
             text = text,
         )
     }
@@ -112,12 +133,18 @@ private fun ButtonsPreview() {
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         ButtonPrimary(modifier = Modifier, text = stringResource(R.string.example), onClick = {})
+        ButtonPrimaryEnable(
+            modifier = Modifier,
+            text = stringResource(R.string.example),
+            enable = false,
+            onClick = {},
+        )
         ButtonSecondary(modifier = Modifier, text = stringResource(R.string.example), onClick = {})
         ButtonCircular(
             modifier = Modifier,
             image = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
             contentDescription = stringResource(R.string.example),
-            onClick = {}
+            onClick = {},
         )
         ButtonText(modifier = Modifier, text = stringResource(R.string.example), onClick = {})
     }

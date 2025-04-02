@@ -6,9 +6,9 @@
 <resources>
 
     <!--Space-->
-    <dimen name="space.small">4dp</dimen>
-    <dimen name="space">8dp</dimen>
-    <dimen name="space.big">16dp</dimen>
+    <dimen name="space.small">2dp</dimen>
+    <dimen name="space">4dp</dimen>
+    <dimen name="space.big">8dp</dimen>
 
     <!--Padding-->
     <dimen name="padding.small">8dp</dimen>
@@ -19,5 +19,6 @@
     <dimen name="margin.small">8dp</dimen>
     <dimen name="margin">16dp</dimen>
     <dimen name="margin.big">32dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

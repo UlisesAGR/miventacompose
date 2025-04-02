@@ -8,4 +8,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.com.google.hilt) apply false
+    alias(libs.plugins.com.google.services) apply false
+    alias(libs.plugins.com.google.crashlytics) apply false
+    alias(libs.plugins.com.google.ksp) apply false
 }

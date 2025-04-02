@@ -8,6 +8,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.com.google.hilt)
+    alias(libs.plugins.com.google.services)
+    alias(libs.plugins.com.google.crashlytics)
+    alias(libs.plugins.com.google.ksp)
 }
 
 android {
@@ -69,24 +73,40 @@ android {
 dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.bundles.androidx.lifecycle.libs)
+    implementation(libs.org.coroutines)
+    implementation(libs.androidx.compose.livedata)
     // Compose
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.foundation)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.foundation)
     // Libs
+    implementation(libs.androidx.splashscreen )
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlin.serialization)
+    implementation(libs.konfetti.compose)
+    // Hilt
+    implementation(libs.bundles.com.google.hilt.libs)
+    implementation(libs.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    ksp(libs.com.google.hilt.compiler)
+    // Firebase
+    implementation(libs.bundles.com.firebase.libs)
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.com.google.hilt.testing)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)

@@ -5,6 +5,14 @@
 -->
 <resources>
 
+    <!-- Application theme -->
     <style name="Theme.MiVentaCompose" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Splash theme -->
+    <style name="Theme.MiVentaCompose.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FAFFFB</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.MiVentaCompose</item>
+    </style>
 
 </resources>

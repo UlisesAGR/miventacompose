@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "929798597664",
+    "project_id": "mi-venta-6301b",
+    "storage_bucket": "mi-venta-6301b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929798597664:android:6be64e764396980aee6045",
+        "android_client_info": {
+          "package_name": "com.miventa.compose.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK_E3h6LyAITF7enhlSW5VaEADVe-Rmig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929798597664:android:8f298d4d6b011c9aee6045",
+        "android_client_info": {
+          "package_name": "com.miventa.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK_E3h6LyAITF7enhlSW5VaEADVe-Rmig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
