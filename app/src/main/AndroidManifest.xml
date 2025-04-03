@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".miventa.App"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,17 +18,17 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".miventa.login.ui.view.activity.LoginActivity"
+            android:name=".presentation.start.ui.login.view.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
-            android:name=".miventa.order.ui.view.activity.OrderActivity"
+            android:name=".presentation.order.OrderActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
-            android:name=".miventa.splash.view.SplashActivity"
+            android:name=".presentation.start.ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MiVentaCompose.Splash"
             android:windowSoftInputMode="stateHidden|adjustPan">

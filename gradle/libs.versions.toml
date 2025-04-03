@@ -6,6 +6,7 @@
 core-ktx = "1.15.0"
 lifecycle-ktx = "2.8.7"
 coroutines = "1.10.1"
+coroutines-play-service = "1.10.1"
 livedata = "1.7.8"
 # Compose
 lifecycle-compose = "2.8.7"
@@ -54,8 +55,9 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-ktx" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-ktx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-compose" }
-org-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 androidx-compose-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "livedata" }
+org-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+org-coroutines-play-service = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines-play-service" }
 # Compose
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -97,6 +99,10 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
 
 [bundles]
+org-coroutines-libs = [
+    "org-coroutines",
+    "org-coroutines-play-service",
+]
 com-google-hilt-libs = [
     "com-google-hilt",
     "com-google-hilt-compose",

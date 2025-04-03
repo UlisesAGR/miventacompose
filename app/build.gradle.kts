@@ -74,8 +74,8 @@ dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.androidx.lifecycle.libs)
-    implementation(libs.org.coroutines)
     implementation(libs.androidx.compose.livedata)
+    implementation(libs.bundles.org.coroutines.libs)
     // Compose
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.ui)
@@ -85,7 +85,7 @@ dependencies {
     implementation(libs.androidx.compose.animation)
     implementation(libs.androidx.compose.foundation)
     // Libs
-    implementation(libs.androidx.splashscreen )
+    implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.ui.text.google.fonts)
