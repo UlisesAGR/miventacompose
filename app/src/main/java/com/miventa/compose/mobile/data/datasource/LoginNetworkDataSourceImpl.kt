@@ -6,32 +6,50 @@
 package com.miventa.compose.mobile.data.datasource
 
 import com.google.firebase.auth.AuthResult
-import com.miventa.compose.mobile.data.firebase.LoginAuthenticationManager
+import com.miventa.compose.mobile.data.firebase.LoginAuthManager
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginNetworkDataSourceImpl @Inject constructor(
-    private val authentication: LoginAuthenticationManager
+    private val firebaseAuth: LoginAuthManager,
+    private val dispatcher: CoroutineDispatcher,
 ) : LoginNetworkDataSource {
 
-    override suspend fun verifyCurrentUser(): String =
-        authentication.verifyCurrentUser()
+    override suspend fun verifyCurrentUser(): String = withContext(dispatcher) {
+        firebaseAuth.verifyCurrentUser()
+    }
 
-    override suspend fun registerUser(email: String, password: String): AuthResult =
-        authentication.registerUser(email, password)
+    override suspend fun registerUser(
+        email: String,
+        password: String,
+    ): AuthResult = withContext(dispatcher) {
+        firebaseAuth.registerUser(email, password).await()
+    }
 
-    override suspend fun sendVerificationEmail() =
-        authentication.sendVerificationEmail()
+    override suspend fun sendVerificationEmail() = withContext(dispatcher) {
+        firebaseAuth.sendVerificationEmail()
+    }
 
-    override suspend fun verifyEmailIsVerified(): Flow<Boolean> =
-        authentication.verifyEmailIsVerified()
+    override suspend fun emailHasBenVerified(): Flow<Boolean> = withContext(dispatcher) {
+        firebaseAuth.emailHasBenVerified()
+    }
 
-    override suspend fun login(email: String, password: String): AuthResult =
-        authentication.login(email, password)
+    override suspend fun login(
+        email: String,
+        password: String,
+    ): AuthResult = withContext(dispatcher) {
+        firebaseAuth.login(email, password).await()
+    }
 
-    override suspend fun isEmailVerified(): Boolean =
-        authentication.isEmailVerified()
+    override suspend fun isEmailVerified(): Boolean = withContext(dispatcher) {
+        firebaseAuth.isEmailVerified()
+    }
 
     override suspend fun recoverPassword(email: String): Void =
-        authentication.recoverPassword(email)
+        withContext(dispatcher) {
+            firebaseAuth.recoverPassword(email).await()
+        }
 }

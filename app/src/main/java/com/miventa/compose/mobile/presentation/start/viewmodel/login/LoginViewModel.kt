@@ -10,11 +10,11 @@ import androidx.lifecycle.viewModelScope
 import com.miventa.compose.mobile.domain.model.LoginStatus
 import com.miventa.compose.mobile.domain.model.RecoverStatus
 import com.miventa.compose.mobile.domain.model.RegisterStatus
+import com.miventa.compose.mobile.domain.usecase.auth.EmailHasBenVerifiedUseCase
 import com.miventa.compose.mobile.domain.usecase.auth.LoginUserUseCase
 import com.miventa.compose.mobile.domain.usecase.auth.RecoverPasswordUseCase
 import com.miventa.compose.mobile.domain.usecase.auth.RegisterUserUseCase
 import com.miventa.compose.mobile.domain.usecase.auth.SendVerificationEmailUserUseCase
-import com.miventa.compose.mobile.domain.usecase.auth.VerifyEmailVerifiedUserUseCase
 import com.miventa.compose.mobile.domain.usecase.validation.ValidationLoginUseCase
 import com.miventa.compose.mobile.domain.usecase.validation.ValidationRecoverUseCase
 import com.miventa.compose.mobile.domain.usecase.validation.ValidationRegisterUseCase
@@ -40,7 +40,7 @@ class LoginViewModel @Inject constructor(
     private val recoverPasswordUseCase: RecoverPasswordUseCase,
     private val registerUserUseCase: RegisterUserUseCase,
     private val sendVerificationEmailUserUseCase: SendVerificationEmailUserUseCase,
-    private val verifyEmailVerifiedUserUseCase: VerifyEmailVerifiedUserUseCase,
+    private val emailHasBenVerifiedUseCase: EmailHasBenVerifiedUseCase,
 ) : ViewModel() {
 
     private val _loginUiState = MutableStateFlow(LoginUiState())
@@ -189,8 +189,8 @@ class LoginViewModel @Inject constructor(
             }
     }
 
-    fun verifyEmailVerified() = viewModelScope.launch {
-        verifyEmailVerifiedUserUseCase().catch { exception ->
+    fun emailHasBenVerified() = viewModelScope.launch {
+        emailHasBenVerifiedUseCase().catch { exception ->
             _loginUiEvent.emit(LoginUiEvent.Error(exception))
         }.collect { isEmailVerified ->
             _loginUiState.value = _loginUiState.value.copy(isEmailVerified = isEmailVerified)

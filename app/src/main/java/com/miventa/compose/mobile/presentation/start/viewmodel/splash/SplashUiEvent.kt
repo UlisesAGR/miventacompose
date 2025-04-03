@@ -6,8 +6,8 @@
 package com.miventa.compose.mobile.presentation.start.viewmodel.splash
 
 sealed class SplashUiEvent {
-
     internal data class Error(val exception: Throwable?) : SplashUiEvent()
+
     internal data object GoToLogin : SplashUiEvent()
     internal data object GoToOrder : SplashUiEvent()
 }

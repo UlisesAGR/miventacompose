@@ -98,7 +98,7 @@ fun LoginNavigationWrapper(
         }
         composable<ValidateRegister> {
             viewModel.clearUiState()
-            viewModel.verifyEmailVerified()
+            viewModel.emailHasBenVerified()
             ValidateRegisterScreen(
                 viewModel = viewModel,
                 validateRegisterInteractions = ValidateRegisterInteractions(

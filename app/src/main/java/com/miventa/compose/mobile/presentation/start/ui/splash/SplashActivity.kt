@@ -12,10 +12,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.miventa.compose.mobile.R
+import com.miventa.compose.mobile.presentation.order.OrderActivity
 import com.miventa.compose.mobile.presentation.start.ui.login.view.LoginActivity
 import com.miventa.compose.mobile.presentation.start.viewmodel.splash.SplashUiEvent
 import com.miventa.compose.mobile.presentation.start.viewmodel.splash.SplashViewModel
-import com.miventa.compose.mobile.presentation.order.OrderActivity
 import com.miventa.compose.mobile.util.collect
 import com.miventa.compose.mobile.util.handleError
 import com.miventa.compose.mobile.util.nextActivityEnd

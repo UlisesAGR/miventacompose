@@ -9,10 +9,9 @@ import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.flow.Flow
 
 interface LoginNetworkDataSource {
-
     suspend fun verifyCurrentUser(): String
     suspend fun isEmailVerified(): Boolean
-    suspend fun verifyEmailIsVerified(): Flow<Boolean>
+    suspend fun emailHasBenVerified(): Flow<Boolean>
     suspend fun login(
         email: String,
         password: String,

@@ -7,7 +7,7 @@ package com.miventa.compose.mobile.domain.usecase.auth
 
 import com.google.firebase.auth.AuthResult
 import com.miventa.compose.mobile.domain.repository.LoginRepository
-import com.miventa.compose.mobile.util.ValidateYourEmail
+import com.miventa.compose.mobile.util.ValidateYourEmailException
 import javax.inject.Inject
 
 class LoginUserUseCase @Inject constructor(
@@ -22,7 +22,7 @@ class LoginUserUseCase @Inject constructor(
             if (loginRepository.isEmailVerified()) {
                 loginRepository.login(email, password)
             } else {
-                throw ValidateYourEmail()
+                throw ValidateYourEmailException()
             }
         }
 }

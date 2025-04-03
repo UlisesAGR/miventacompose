@@ -1,5 +1,5 @@
 /*
- * VerifyEmailVerifiedUserUseCase.kt
+ * EmailHasBenVerifiedUseCase.kt
  * Created by Ulises Gonzalez
  * Copyright (c) 2025. All rights reserved
  */
@@ -9,10 +9,10 @@ import com.miventa.compose.mobile.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class VerifyEmailVerifiedUserUseCase @Inject constructor(
+class EmailHasBenVerifiedUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
 ) {
 
     suspend operator fun invoke(): Flow<Boolean> =
-        loginRepository.verifyEmailIsVerified()
+        loginRepository.emailHasBenVerified()
 }

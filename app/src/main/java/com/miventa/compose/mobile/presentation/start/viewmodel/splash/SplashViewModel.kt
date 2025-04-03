@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miventa.compose.mobile.domain.usecase.auth.EmailVerifiedUseCase
 import com.miventa.compose.mobile.domain.usecase.auth.ValidateCurrentUserUseCase
-import com.miventa.compose.mobile.util.Constants.DELAY
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -24,7 +22,7 @@ class SplashViewModel @Inject constructor(
     private val emailVerifiedUseCase: EmailVerifiedUseCase,
 ) : ViewModel() {
 
-    private var _splashUiEvent = MutableSharedFlow<SplashUiEvent>()
+    private val _splashUiEvent = MutableSharedFlow<SplashUiEvent>(replay = 1)
     val splashUiEvent: SharedFlow<SplashUiEvent> = _splashUiEvent
 
     init {
@@ -32,7 +30,6 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun verifyCurrentUser() = viewModelScope.launch {
-        delay(DELAY)
         validateCurrentUserUseCase()
             .onSuccess { email ->
                 if (email.isNotEmpty()) {
@@ -41,12 +38,8 @@ class SplashViewModel @Inject constructor(
                     _splashUiEvent.emit(SplashUiEvent.GoToLogin)
                 }
             }
-            .onFailure {
-                _splashUiEvent.emit(
-                    SplashUiEvent.Error(
-                        it
-                    )
-                )
+            .onFailure { exception ->
+                _splashUiEvent.emit(SplashUiEvent.Error(exception))
             }
     }
 
@@ -60,12 +53,8 @@ class SplashViewModel @Inject constructor(
                     _splashUiEvent.emit(SplashUiEvent.GoToLogin)
                 }
             }
-            .onFailure {
-                _splashUiEvent.emit(
-                    SplashUiEvent.Error(
-                        it
-                    )
-                )
+            .onFailure { exception ->
+                _splashUiEvent.emit(SplashUiEvent.Error(exception))
             }
     }
 }
