@@ -104,9 +104,13 @@ dependencies {
     implementation(libs.bundles.com.firebase.libs)
     // Test
     testImplementation(libs.junit)
+    testImplementation(libs.com.google.hilt.testing)
+    testImplementation(libs.bundles.org.mockito.libs)
+    testImplementation(libs.org.robolectric)
+    testImplementation(libs.org.coroutines.test)
+    // AndroidTest
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation(libs.com.google.hilt.testing)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
