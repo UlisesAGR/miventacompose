@@ -34,13 +34,12 @@ fun ValidateRecoverScreen(
     navigateToLogin: () -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
-
     Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_big))
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Spacer(
             modifier = Modifier
@@ -48,21 +47,21 @@ fun ValidateRecoverScreen(
                 .weight(1f)
         )
         Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.il_message_sent),
             contentDescription = stringResource(R.string.email_sent),
+            painter = painterResource(id = R.drawable.il_message_sent),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.the_email_has_been_sent),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.the_email_has_been_sent),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.the_email_has_been_sent_to_reset_your_password),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.the_email_has_been_sent_to_reset_your_password),
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(
             modifier = Modifier

@@ -5,7 +5,6 @@
  */
 package com.miventa.compose.mobile.presentation.start.ui.login.view.screen.register
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,12 +17,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,11 +32,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.miventa.compose.mobile.R
 import com.miventa.compose.mobile.presentation.start.ui.login.navigation.ValidateRegisterInteractions
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.LoginViewModel
-import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiState
 import com.miventa.compose.mobile.theme.Screen
-import com.miventa.compose.mobile.util.handleError
-import com.miventa.compose.mobile.util.showToast
 import com.miventa.compose.mobile.widget.ButtonCircular
 import com.miventa.compose.mobile.widget.ButtonPrimaryEnable
 
@@ -49,26 +43,18 @@ fun ValidateRegisterScreen(
     viewModel: LoginViewModel,
     validateRegisterInteractions: ValidateRegisterInteractions,
 ) {
-    val context = LocalContext.current
     val scrollState = rememberScrollState()
 
     val loginUiState by viewModel.loginUiState.collectAsState(LoginUiState())
 
-    val loginUiEvent by viewModel.loginUiEvent.collectAsState(LoginUiEvent.Empty)
-
-    LaunchedEffect(key1 = loginUiEvent) {
-        context.handleEvent(loginUiEvent)
-    }
-
     Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_big))
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         ButtonCircular(
-            modifier = Modifier,
             image = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
             contentDescription = stringResource(R.string.back),
             onClick = {
@@ -81,21 +67,21 @@ fun ValidateRegisterScreen(
                 .weight(1f)
         )
         Image(
-            modifier = Modifier.fillMaxWidth(),
             painter = painterResource(id = R.drawable.il_message_sent),
             contentDescription = stringResource(R.string.email_sent),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.verify_your_email),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.verify_your_email),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.please_verify_and_return_to_the_application_to_continue_your_registration),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.please_verify_and_return_to_the_application_to_continue_your_registration),
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(
             modifier = Modifier
@@ -109,16 +95,6 @@ fun ValidateRegisterScreen(
                 validateRegisterInteractions.navigateToRegisterSuccess()
             },
         )
-    }
-}
-
-private fun Context.handleEvent(event: LoginUiEvent?) {
-    when (event) {
-        is LoginUiEvent.Error -> {
-            showToast(handleError(event.exception))
-        }
-
-        else -> {}
     }
 }
 

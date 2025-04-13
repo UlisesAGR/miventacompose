@@ -35,26 +35,25 @@ fun WelcomeScreen(
     welcomeInteractions: WelcomeInteractions,
 ) {
     val scrollState = rememberScrollState()
-
     Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_big))
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Image(
+            painter = painterResource(id = R.drawable.il_welcome_cats),
+            contentDescription = stringResource(R.string.welcome),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
-            painter = painterResource(id = R.drawable.il_welcome_cats),
-            contentDescription = stringResource(R.string.welcome),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.welcome_to_the_app_that_helps_you_manage_your_sales),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.welcome_to_the_app_that_helps_you_manage_your_sales),
+            modifier = Modifier.fillMaxWidth(),
         )
         ButtonPrimary(
             text = stringResource(R.string.sign_in),

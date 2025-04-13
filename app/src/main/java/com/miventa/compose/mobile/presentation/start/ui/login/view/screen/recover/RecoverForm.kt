@@ -36,15 +36,11 @@ fun RecoverForm(
     recoverInteractions: RecoverInteractions,
 ) = with(state) {
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    val textModifier = modifier.fillMaxWidth()
-
     Column(
-        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
+        modifier = modifier.fillMaxWidth(),
     ) {
         ButtonCircular(
-            modifier = Modifier,
             image = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
             contentDescription = stringResource(R.string.back),
             onClick = {
@@ -53,21 +49,21 @@ fun RecoverForm(
             },
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.recover_password),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.recover_password),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.here_you_can_recover_your_password),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.here_you_can_recover_your_password),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_email),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         EmailTextField(
             email = email,

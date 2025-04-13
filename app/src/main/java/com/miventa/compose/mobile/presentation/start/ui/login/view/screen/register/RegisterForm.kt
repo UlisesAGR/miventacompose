@@ -37,39 +37,34 @@ fun RegisterForm(
     registerInteractions: RegisterInteractions,
 ) = with(state) {
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    val textModifier = modifier.fillMaxWidth()
-
     Column(
-        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
+        modifier = modifier.fillMaxWidth(),
     ) {
         ButtonCircular(
-            modifier = Modifier,
             image = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
             contentDescription = stringResource(id = R.string.back),
             onClick = {
                 keyboardController?.hide()
                 registerInteractions.navigateToWelcome()
-                viewModel.clearUiState()
             },
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.register_account),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.register_account),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.here_you_can_register_a_new_account),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.here_you_can_register_a_new_account),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_email),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         EmailTextField(
             email = email,
@@ -80,9 +75,9 @@ fun RegisterForm(
             },
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_password),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         PasswordTextField(
             password = password,
@@ -97,9 +92,9 @@ fun RegisterForm(
             },
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_password_to_confirm),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         PasswordTextField(
             password = passwordConfirm,

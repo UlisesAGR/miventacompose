@@ -38,15 +38,11 @@ fun LoginForm(
     interactions: LoginInteractions,
 ) = with(state) {
     val keyboardController = LocalSoftwareKeyboardController.current
-
-    val textModifier = modifier.fillMaxWidth()
-
     Column(
-        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
+        modifier = modifier.fillMaxWidth(),
     ) {
         ButtonCircular(
-            modifier = Modifier,
             image = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
             contentDescription = stringResource(R.string.back),
             onClick = {
@@ -55,21 +51,21 @@ fun LoginForm(
             },
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.welcome_come_back),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.welcome_come_back),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
+            text = stringResource(R.string.here_you_can_login_with_your_credentials),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.here_you_can_login_with_your_credentials),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_email),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         EmailTextField(
             email = email,
@@ -80,9 +76,9 @@ fun LoginForm(
             },
         )
         Text(
-            modifier = textModifier,
-            style = MaterialTheme.typography.titleSmall,
             text = stringResource(R.string.enter_your_password),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.fillMaxWidth(),
         )
         PasswordTextField(
             password = password,
@@ -97,8 +93,8 @@ fun LoginForm(
             },
         )
         ButtonText(
-            modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.End),
             text = stringResource(R.string.forgot_password),
+            modifier = Modifier.align(alignment = androidx.compose.ui.Alignment.End),
             onClick = {
                 keyboardController?.hide()
                 interactions.navigateToRecover()

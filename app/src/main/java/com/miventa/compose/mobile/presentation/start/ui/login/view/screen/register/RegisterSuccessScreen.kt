@@ -34,13 +34,12 @@ fun RegisterSuccessScreen(
     navigateToWelcome: () -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
-
     Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_big))
             .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Spacer(
             modifier = Modifier
@@ -48,21 +47,21 @@ fun RegisterSuccessScreen(
                 .weight(1f)
         )
         Image(
-            modifier = Modifier.fillMaxWidth(),
             painter = painterResource(id = R.drawable.il_confirmed),
             contentDescription = stringResource(R.string.account_created_successfully),
+            modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.congratulations_account_created_successfully),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            text = stringResource(R.string.congratulations_account_created_successfully),
+            modifier = modifier.fillMaxWidth(),
         )
         Text(
-            modifier = modifier.fillMaxWidth(),
+            text = stringResource(R.string.sign_in_and_start_making_your_sales),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
-            text = stringResource(R.string.sign_in_and_start_making_your_sales),
+            modifier = modifier.fillMaxWidth(),
         )
         Spacer(
             modifier = Modifier
