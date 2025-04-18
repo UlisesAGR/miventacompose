@@ -253,42 +253,38 @@ data class ColorFamily(
     val color: Color,
     val onColor: Color,
     val colorContainer: Color,
-    val onColorContainer: Color
+    val onColorContainer: Color,
 )
 
 val unspecified_scheme = ColorFamily(
-    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
+    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified,
 )
 
 @Composable
-private fun getColorScheme(darkTheme: Boolean, dynamicColorEnabled: Boolean): ColorScheme {
-    return when {
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit,
+) {
+    val colorScheme = getColorScheme(darkTheme, dynamicColor)
+    SetupWindowAppearance(darkTheme)
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography,
+        content = content,
+    )
+}
+
+@Composable
+private fun getColorScheme(darkTheme: Boolean, dynamicColorEnabled: Boolean): ColorScheme =
+    when {
         dynamicColorEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> darkScheme
         else -> lightScheme
     }
-}
-
-@Composable
-private fun ComposeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = getColorScheme(darkTheme, dynamicColor)
-    SetupWindowAppearance(darkTheme)
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = typography,
-        shapes = shapes,
-        content = content,
-    )
-}
 
 @Composable
 private fun SetupWindowAppearance(darkTheme: Boolean) {
@@ -297,16 +293,10 @@ private fun SetupWindowAppearance(darkTheme: Boolean) {
         SideEffect {
             val window = (view.context as? Activity)?.window
             window?.let {
-                val insetsController = WindowCompat.getInsetsController(it, view)
-
-                insetsController.isAppearanceLightStatusBars = !darkTheme
-                insetsController.isAppearanceLightNavigationBars = !darkTheme
-
-                insetsController.isAppearanceLightStatusBars = !darkTheme
-                insetsController.isAppearanceLightNavigationBars = !darkTheme
-
-                insetsController.isAppearanceLightStatusBars = !darkTheme
-                insetsController.isAppearanceLightNavigationBars = !darkTheme
+                WindowCompat.getInsetsController(it, view).apply {
+                    isAppearanceLightStatusBars = true
+                    isAppearanceLightNavigationBars = !darkTheme
+                }
             }
         }
     }
@@ -314,7 +304,7 @@ private fun SetupWindowAppearance(darkTheme: Boolean) {
 
 @Composable
 fun Screen(content: @Composable () -> Unit) {
-    ComposeTheme {
+    AppTheme {
         Surface(
             modifier = Modifier.safeDrawingPadding(),
             color = MaterialTheme.colorScheme.background,

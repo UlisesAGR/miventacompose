@@ -5,8 +5,6 @@
  */
 package com.miventa.compose.mobile.util
 
-class ValidateYourEmailException : Throwable()
-class ExistProductException : Throwable()
-class NoReadProductsException : Throwable()
-class NoSelectProductsException : Throwable()
-class GeneratePdfException : Throwable()
+class ValidateYourEmailException : Exception()
+class ExistProductException : Exception()
+class NoReadProductsException : Exception()

@@ -5,8 +5,8 @@
  */
 package com.miventa.compose.mobile.di.login
 
-import com.miventa.compose.mobile.domain.repository.LoginRepository
-import com.miventa.compose.mobile.data.repository.LoginRepositoryImpl
+import com.miventa.compose.mobile.domain.repository.login.LoginRepository
+import com.miventa.compose.mobile.data.repository.login.LoginRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

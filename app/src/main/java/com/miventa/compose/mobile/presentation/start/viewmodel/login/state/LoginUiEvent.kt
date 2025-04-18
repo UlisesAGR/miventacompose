@@ -5,9 +5,9 @@
  */
 package com.miventa.compose.mobile.presentation.start.viewmodel.login.state
 
-import com.miventa.compose.mobile.domain.model.LoginStatus
-import com.miventa.compose.mobile.domain.model.RecoverStatus
-import com.miventa.compose.mobile.domain.model.RegisterStatus
+import com.miventa.compose.mobile.domain.model.login.LoginStatus
+import com.miventa.compose.mobile.domain.model.login.RecoverStatus
+import com.miventa.compose.mobile.domain.model.login.RegisterStatus
 
 sealed class LoginUiEvent {
     internal data object Empty : LoginUiEvent()

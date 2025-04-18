@@ -23,7 +23,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".presentation.order.OrderActivity"
+            android:name=".presentation.order.ui.view.OrderActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
 

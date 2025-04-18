@@ -6,7 +6,7 @@
 package com.miventa.compose.mobile.util
 
 object Constants {
-
-    const val DELAY = 1L
+    const val INFO = "info"
+    const val SETTINGS = "settings"
     const val ERROR = "Error"
 }

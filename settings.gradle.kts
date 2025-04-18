@@ -1,6 +1,6 @@
 /*
  * build.gradle.kts - Module app
- * Modified by Ulises Gonzalez
+ * Created by Ulises Gonzalez
  * Copyright (c) 2025. All rights reserved
  */
 pluginManagement {

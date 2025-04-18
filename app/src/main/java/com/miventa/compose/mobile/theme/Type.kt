@@ -12,16 +12,19 @@ import com.miventa.compose.mobile.R
 val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 val fontName = GoogleFont("Poppins")
 
 private val fontFamily = FontFamily(
-    Font(googleFont = fontName, fontProvider = provider)
+    Font(
+        googleFont = fontName,
+        fontProvider = provider,
+    )
 )
 
-val typography = Typography(
+val AppTypography = Typography(
     titleLarge = TextStyle(
         fontWeight = FontWeight.SemiBold,
         fontSize = 28.sp,

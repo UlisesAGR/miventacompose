@@ -1,6 +1,6 @@
 /*
  * build.gradle.kts - Module app
- * Modified by Ulises Gonzalez
+ * Created by Ulises Gonzalez
  * Copyright (c) 2025. All rights reserved
  */
 plugins {
@@ -20,6 +20,8 @@ android {
 
     defaultConfig {
         resValue("string", "APP_NAME", "\"${properties["app.name"]}\"")
+
+        buildConfigField("String", "DATABASE_NAME", "\"${properties["database.name"]}\"")
 
         applicationId = BuildConfig.APP_ID
         minSdk = BuildConfig.MIN_SDK_VERSION
@@ -73,6 +75,8 @@ android {
 dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
     implementation(libs.bundles.androidx.lifecycle.libs)
     implementation(libs.androidx.compose.livedata)
     implementation(libs.bundles.org.coroutines.libs)
@@ -86,22 +90,26 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     // Libs
     implementation(libs.androidx.splashscreen)
+    implementation(libs.material)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlin.serialization)
     implementation(libs.konfetti.compose)
-    // Hilt
-    implementation(libs.bundles.com.google.hilt.libs)
-    implementation(libs.material)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
+    // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    // Hilt
+    implementation(libs.bundles.com.google.hilt.libs)
     ksp(libs.com.google.hilt.compiler)
     // Firebase
     implementation(libs.bundles.com.firebase.libs)
+    // Room
+    implementation(libs.bundles.androidx.room.libs)
+    ksp(libs.androidx.room.compiler)
+    // DataStore
+    implementation(libs.bundles.androidx.datastore.libs)
     // Test
     testImplementation(libs.junit)
     testImplementation(libs.com.google.hilt.testing)

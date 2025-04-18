@@ -7,8 +7,8 @@ package com.miventa.compose.mobile.presentation.start.viewmodel.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miventa.compose.mobile.domain.usecase.auth.EmailVerifiedUseCase
-import com.miventa.compose.mobile.domain.usecase.auth.ValidateCurrentUserUseCase
+import com.miventa.compose.mobile.domain.usecase.login.auth.EmailVerifiedUseCase
+import com.miventa.compose.mobile.domain.usecase.login.auth.ValidateCurrentUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

@@ -16,10 +16,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.miventa.compose.mobile.R
-import com.miventa.compose.mobile.domain.model.LoginStatus
-import com.miventa.compose.mobile.domain.model.RecoverStatus
-import com.miventa.compose.mobile.domain.model.RegisterStatus
-import com.miventa.compose.mobile.presentation.order.OrderActivity
+import com.miventa.compose.mobile.domain.model.login.LoginStatus
+import com.miventa.compose.mobile.domain.model.login.RecoverStatus
+import com.miventa.compose.mobile.domain.model.login.RegisterStatus
+import com.miventa.compose.mobile.presentation.order.ui.view.OrderActivity
 import com.miventa.compose.mobile.presentation.start.ui.login.navigation.LoginNavigationWrapper
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.LoginViewModel
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent

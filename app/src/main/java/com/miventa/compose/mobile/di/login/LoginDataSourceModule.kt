@@ -5,8 +5,8 @@
  */
 package com.miventa.compose.mobile.di.login
 
-import com.miventa.compose.mobile.data.datasource.LoginNetworkDataSource
-import com.miventa.compose.mobile.data.datasource.LoginNetworkDataSourceImpl
+import com.miventa.compose.mobile.data.datasource.login.LoginNetworkDataSource
+import com.miventa.compose.mobile.data.datasource.login.LoginNetworkDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
