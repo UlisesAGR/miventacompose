@@ -1,6 +1,14 @@
+/*
+ * TextField.kt
+ * Created by Ulises Gonzalez
+ * Copyright (c) 2025. All rights reserved
+ */
 package com.miventa.compose.mobile.widget
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -13,11 +21,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import com.miventa.compose.mobile.R
 
 @Composable
@@ -83,4 +93,30 @@ fun PasswordTextField(
             }
         },
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TextFieldPreview() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.padding_big)),
+    ) {
+        EmailTextField(
+            email = stringResource(R.string.example),
+            hint = stringResource(R.string.example),
+            imeAction = ImeAction.Next,
+            onTextFieldChanged = {},
+        )
+        PasswordTextField(
+            password = stringResource(R.string.example),
+            passwordHidden = true,
+            hint = stringResource(R.string.example),
+            imeAction = ImeAction.Done,
+            onTextFieldChanged = {},
+            onClickPasswordHidden = {},
+        )
+    }
 }

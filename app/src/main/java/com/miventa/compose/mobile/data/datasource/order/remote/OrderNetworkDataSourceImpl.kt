@@ -13,5 +13,13 @@ class OrderNetworkDataSourceImpl @Inject constructor(
 ) : OrderNetworkDataSource {
 
     override suspend fun verifyCurrentUser(): String =
-        authentication.verifyCurrentUser()
+        runCatching {
+            authentication.verifyCurrentUser()
+        }.getOrDefault(defaultValue = "")
+
+    override suspend fun signOut() {
+        runCatching {
+            authentication.signOut()
+        }
+    }
 }

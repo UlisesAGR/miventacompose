@@ -19,9 +19,23 @@ android {
     compileSdk = BuildConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
-        resValue("string", "APP_NAME", "\"${properties["app.name"]}\"")
+        resValue(
+            type = "string",
+            name = "APP_NAME",
+            value = "\"${properties["app.name"]}\"",
+        )
 
-        buildConfigField("String", "DATABASE_NAME", "\"${properties["database.name"]}\"")
+        buildConfigField(
+            type = "String",
+            name = "DATABASE_NAME",
+            value = "\"${properties["database.name"]}\"",
+        )
+
+        buildConfigField(
+            type = "String",
+            name = "PREFERENCES_NAME",
+            value = "\"${properties["preferences.name"]}\"",
+        )
 
         applicationId = BuildConfig.APP_ID
         minSdk = BuildConfig.MIN_SDK_VERSION

@@ -10,24 +10,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class BottomScreens<T>(
-    val title: String,
+    val title: Int,
     val iconId: Int,
 ) {
     @Serializable
     data object Order : BottomScreens<Order>(
-        title = "Order",
+        title = R.string.order,
         iconId = R.drawable.ic_order,
     )
 
     @Serializable
     data object EditOrder : BottomScreens<EditOrder>(
-        title = "Edit",
+        title = R.string.edit,
         iconId = R.drawable.ic_edit,
     )
 
     @Serializable
     data object Profile : BottomScreens<Profile>(
-        title = "Profile",
+        title = R.string.profile,
         iconId = R.drawable.ic_person,
     )
 }

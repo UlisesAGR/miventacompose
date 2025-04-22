@@ -6,7 +6,12 @@
 package com.miventa.compose.mobile.presentation.order.viewModel.state
 
 sealed class OrderUiEvent {
-    internal data class Loading(val isLoading: Boolean) : OrderUiEvent()
+    internal data object Initial : OrderUiEvent()
     internal data class Error(val exception: Throwable?) : OrderUiEvent()
+
+    internal data object ShowInfoDialog : OrderUiEvent()
+
     internal data object NavigateToLogin : OrderUiEvent()
+
+    internal data object ShareUrl : OrderUiEvent()
 }

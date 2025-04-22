@@ -77,4 +77,17 @@
     <string name="sign_in_and_start_making_your_sales">Sign in and start making your sales</string>
     <string name="accept">Accept</string>
 
+    <!-- Order Screen -->
+    <string name="order">Order</string>
+
+    <!-- Edit Screen -->
+    <string name="edit">Edit</string>
+
+    <!-- Profile Screen -->
+    <string name="profile">Profile</string>
+    <string name="share_app">Share app</string>
+    <string name="logout">Logout</string>
+    <string name="thank_you_for_sharing">Thank you for sharing</string>
+    <string name="sharing_error">Sharing error</string>
+
 </resources>

@@ -6,5 +6,6 @@
 package com.miventa.compose.mobile.presentation.order.viewModel.state
 
 data class OrderUiState(
-    val other: Boolean = false,
+    val isLoading: Boolean = false,
+    val currentEmail: String = "",
 )

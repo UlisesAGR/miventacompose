@@ -5,6 +5,7 @@
  */
 package com.miventa.compose.mobile.presentation.start.ui.login.view.screen.welcome
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,18 +15,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import com.miventa.compose.mobile.R
 import com.miventa.compose.mobile.presentation.start.ui.login.navigation.WelcomeInteractions
-import com.miventa.compose.mobile.theme.Screen
+import com.miventa.compose.mobile.util.enterToDownClosest
+import com.miventa.compose.mobile.util.enterToUpClosest
+import com.miventa.compose.mobile.widget.AnimatedColoredText
 import com.miventa.compose.mobile.widget.ButtonPrimary
 import com.miventa.compose.mobile.widget.ButtonSecondary
 
@@ -35,54 +40,56 @@ fun WelcomeScreen(
     welcomeInteractions: WelcomeInteractions,
 ) {
     val scrollState = rememberScrollState()
+    var visible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
     Column(
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space)),
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(id = R.dimen.padding_big))
             .verticalScroll(scrollState),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.il_welcome_cats),
-            contentDescription = stringResource(R.string.welcome),
+        AnimatedVisibility(
+            visible = visible,
+            enter = enterToUpClosest(),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
-        )
-        Text(
-            text = stringResource(R.string.welcome_to_the_app_that_helps_you_manage_your_sales),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        ButtonPrimary(
-            text = stringResource(R.string.sign_in),
-            onClick = {
-                welcomeInteractions.navigateToLogin()
-            },
-        )
-        ButtonSecondary(
-            text = stringResource(R.string.register),
-            onClick = {
-                welcomeInteractions.navigateToRegister()
-            },
-        )
-    }
-}
-
-@Preview(
-    showSystemUi = true,
-    showBackground = true,
-    device = Devices.PIXEL_7,
-)
-@Composable
-private fun WelcomeScreenPreview() {
-    Screen {
-        WelcomeScreen(
-            welcomeInteractions = WelcomeInteractions(
-                navigateToLogin = {},
-                navigateToRegister = {},
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.il_welcome_cats),
+                contentDescription = stringResource(R.string.welcome),
+                modifier = Modifier.fillMaxSize(),
             )
-        )
+        }
+        AnimatedVisibility(
+            visible = visible,
+            enter = enterToDownClosest(),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.space)),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                AnimatedColoredText(
+                    text = stringResource(R.string.welcome_to_the_app_that_helps_you_manage_your_sales),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                ButtonPrimary(
+                    text = stringResource(R.string.sign_in),
+                    onClick = { welcomeInteractions.navigateToLogin() },
+                )
+                ButtonSecondary(
+                    text = stringResource(R.string.register),
+                    onClick = { welcomeInteractions.navigateToRegister() },
+                )
+            }
+        }
     }
 }

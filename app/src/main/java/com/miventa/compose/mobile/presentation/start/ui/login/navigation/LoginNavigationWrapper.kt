@@ -6,9 +6,9 @@
 package com.miventa.compose.mobile.presentation.start.ui.login.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.login.LoginScreen
 import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.recover.RecoverScreen
 import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.recover.ValidateRecoverScreen
@@ -17,14 +17,14 @@ import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.regist
 import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.register.ValidateRegisterScreen
 import com.miventa.compose.mobile.presentation.start.ui.login.view.screen.welcome.WelcomeScreen
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.LoginViewModel
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiState
 
 @Composable
 fun LoginNavigationWrapper(
+    navController: NavHostController,
     viewModel: LoginViewModel,
-    navigateToOrder: () -> Unit = {},
+    loginUiState: LoginUiState,
 ) {
-    val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = Welcome,
@@ -33,91 +33,100 @@ fun LoginNavigationWrapper(
             WelcomeScreen(
                 welcomeInteractions = WelcomeInteractions(
                     navigateToLogin = {
-                        navController.navigate(Login)
+                        navController.navigate(Login) {
+                            popUpTo(Login) { inclusive = true }
+                        }
+                        viewModel.clearUiState()
                     },
                     navigateToRegister = {
                         navController.navigate(Register)
+                        viewModel.clearUiState()
                     },
                 )
             )
         }
         composable<Login> {
-            viewModel.clearUiState()
             LoginScreen(
-                viewModel = viewModel,
+                viewModel,
+                loginUiState,
                 loginInteractions = LoginInteractions(
                     navigateToWelcome = {
                         navController.popBackStack()
+                        viewModel.clearUiState()
                     },
                     navigateToRecover = {
                         navController.navigate(Recover)
-                    },
-                    navigateToOrder = {
-                        navigateToOrder()
+                        viewModel.clearUiState()
                     },
                 )
             )
         }
         composable<Recover> {
-            viewModel.clearUiState()
             RecoverScreen(
-                viewModel = viewModel,
+                viewModel,
+                loginUiState,
                 recoverInteractions = RecoverInteractions(
                     navigateToLogin = {
                         navController.popBackStack()
+                        viewModel.clearUiState()
                     },
                     navigateToValidateRecover = {
                         navController.navigate(ValidateRecover)
+                        viewModel.clearUiState()
                     },
                 ),
             )
         }
         composable<ValidateRecover> {
-            viewModel.clearUiState()
             ValidateRecoverScreen(
                 navigateToLogin = {
                     navController.navigate(Login) {
                         popUpTo(Login) { inclusive = true }
                     }
+                    viewModel.clearUiState()
                 },
             )
         }
         composable<Register> {
-            viewModel.clearUiState()
             RegisterScreen(
-                viewModel = viewModel,
+                viewModel,
+                loginUiState,
                 registerInteractions = RegisterInteractions(
                     navigateToWelcome = {
                         navController.popBackStack()
+                        viewModel.clearUiState()
                     },
                     navigateToValidateRegister = {
                         navController.navigate(ValidateRegister)
+                        viewModel.clearUiState()
                     },
                 )
             )
         }
         composable<ValidateRegister> {
-            viewModel.clearUiState()
-            viewModel.emailHasBenVerified()
             ValidateRegisterScreen(
-                viewModel = viewModel,
+                loginUiState,
                 validateRegisterInteractions = ValidateRegisterInteractions(
                     navigateToRegister = {
                         navController.popBackStack()
+                        viewModel.clearUiState()
                     },
                     navigateToRegisterSuccess = {
-                        navController.navigate(RegisterSuccess)
-                    },
+                        navController.navigate(RegisterSuccess) {
+                            popUpTo(ValidateRegister) { inclusive = true }
+                        }
+                        viewModel.clearUiState()
+                    }
                 )
             )
         }
         composable<RegisterSuccess> {
-            viewModel.clearUiState()
             RegisterSuccessScreen(
                 navigateToWelcome = {
                     navController.navigate(Welcome) {
                         popUpTo(Welcome) { inclusive = false }
                     }
+                    viewModel.clearUiState()
                 },
             )
         }

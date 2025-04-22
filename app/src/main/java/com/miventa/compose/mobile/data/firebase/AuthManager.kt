@@ -25,4 +25,5 @@ interface AuthManager {
     ): Task<AuthResult>
 
     suspend fun sendVerificationEmail()
+    suspend fun signOut()
 }

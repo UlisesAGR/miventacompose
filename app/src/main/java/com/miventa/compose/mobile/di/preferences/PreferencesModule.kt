@@ -3,7 +3,7 @@
  * Created by Ulises Gonzalez
  * Copyright (c) 2025. All rights reserved
  */
-package com.miventa.compose.mobile.di.local
+package com.miventa.compose.mobile.di.preferences
 
 import com.miventa.compose.mobile.data.local.preference.PreferencesManager
 import com.miventa.compose.mobile.data.local.preference.PreferencesManagerImpl

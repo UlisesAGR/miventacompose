@@ -13,7 +13,6 @@ data class WelcomeInteractions(
 data class LoginInteractions(
     val navigateToWelcome: () -> Unit,
     val navigateToRecover: () -> Unit,
-    val navigateToOrder: () -> Unit,
 )
 
 data class RecoverInteractions(

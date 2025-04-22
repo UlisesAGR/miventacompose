@@ -7,4 +7,5 @@ package com.miventa.compose.mobile.data.datasource.order.remote
 
 interface OrderNetworkDataSource {
     suspend fun verifyCurrentUser(): String
+    suspend fun signOut()
 }

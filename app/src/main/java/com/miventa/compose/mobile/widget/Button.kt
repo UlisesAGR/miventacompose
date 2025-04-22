@@ -127,10 +127,10 @@ fun ButtonText(
 @Composable
 private fun ButtonsPreview() {
     Column(
+        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space)),
         modifier = Modifier
             .fillMaxWidth()
             .padding(dimensionResource(id = R.dimen.padding_big)),
-        verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_big)),
     ) {
         ButtonPrimary(modifier = Modifier, text = stringResource(R.string.example), onClick = {})
         ButtonPrimaryEnable(

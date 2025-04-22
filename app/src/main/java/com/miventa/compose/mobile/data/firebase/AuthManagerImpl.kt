@@ -50,4 +50,7 @@ class AuthManagerImpl @Inject constructor(
     override suspend fun sendVerificationEmail() {
         auth.currentUser?.sendEmailVerification()
     }
+
+    override suspend fun signOut() =
+        auth.signOut()
 }

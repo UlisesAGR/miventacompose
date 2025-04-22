@@ -6,7 +6,6 @@
 package com.miventa.compose.mobile.data.local.preference
 
 interface PreferencesManager {
-
     suspend fun readInfoValue(): Boolean
     suspend fun updateInfoValue(value: Boolean)
 }

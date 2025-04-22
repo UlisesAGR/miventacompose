@@ -54,4 +54,8 @@ class OrderRepositoryImpl @Inject constructor(
     override suspend fun updateInfoValue(value: Boolean) = withContext(dispatcher) {
         orderLocalDataSource.updateInfoValue(value)
     }
+
+    override suspend fun signOut() = withContext(dispatcher) {
+        orderNetworkDataSource.signOut()
+    }
 }

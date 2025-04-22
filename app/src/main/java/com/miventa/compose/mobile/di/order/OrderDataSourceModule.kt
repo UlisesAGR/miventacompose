@@ -7,6 +7,8 @@ package com.miventa.compose.mobile.di.order
 
 import com.miventa.compose.mobile.data.datasource.order.local.OrderLocalDataSource
 import com.miventa.compose.mobile.data.datasource.order.local.OrderLocalDataSourceImpl
+import com.miventa.compose.mobile.data.datasource.order.remote.OrderNetworkDataSource
+import com.miventa.compose.mobile.data.datasource.order.remote.OrderNetworkDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +22,8 @@ abstract class OrderDataSourceModule {
     @Binds
     @Singleton
     abstract fun provideOrderLocalDataSource(orderLocalDataSourceImpl: OrderLocalDataSourceImpl): OrderLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun provideOrderNetworkDataSource(orderNetworkDataSourceImpl: OrderNetworkDataSourceImpl): OrderNetworkDataSource
 }

@@ -11,22 +11,35 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.miventa.compose.mobile.R
 import com.miventa.compose.mobile.domain.model.login.LoginStatus
 import com.miventa.compose.mobile.domain.model.login.RecoverStatus
 import com.miventa.compose.mobile.domain.model.login.RegisterStatus
 import com.miventa.compose.mobile.presentation.order.ui.view.OrderActivity
 import com.miventa.compose.mobile.presentation.start.ui.login.navigation.LoginNavigationWrapper
+import com.miventa.compose.mobile.presentation.start.ui.login.navigation.ValidateRecover
+import com.miventa.compose.mobile.presentation.start.ui.login.navigation.ValidateRegister
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.LoginViewModel
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiState
 import com.miventa.compose.mobile.theme.Screen
 import com.miventa.compose.mobile.util.handleError
 import com.miventa.compose.mobile.util.nextActivityEnd
 import com.miventa.compose.mobile.util.showToast
+import com.miventa.compose.mobile.widget.ProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,30 +58,47 @@ class LoginActivity : ComponentActivity() {
     @Composable
     private fun ContentScreen() {
         Screen {
-            val loginUiEvent by viewModel.loginUiEvent.collectAsState(LoginUiEvent.Empty)
+            val navController = rememberNavController()
+            val loginUiState by viewModel.loginUiState.collectAsState(LoginUiState())
+            val loginUiEvent by viewModel.loginUiEvent.collectAsState(LoginUiEvent.Initial)
 
-            LaunchedEffect(loginUiEvent) {
-                if (loginUiEvent is LoginUiEvent.Error) {
-                    showEventToast(loginUiEvent)
+            HandleLoginEvents(loginUiEvent, navController)
+
+            Crossfade(targetState = loginUiState.isLoading) { content ->
+                if (content) {
+                    ProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.background)
+                            .wrapContentSize(Alignment.Center),
+                    )
+                } else {
+                    LoginNavigationWrapper(
+                        navController,
+                        viewModel,
+                        loginUiState,
+                    )
                 }
             }
-
-            LoginNavigationWrapper(
-                viewModel,
-                navigateToOrder = {
-                    goToOrder()
-                },
-            )
         }
     }
 
-    private fun Context.showEventToast(event: LoginUiEvent) {
-        when (event) {
-            is LoginUiEvent.Error -> showToast(handleError(event.exception))
-            is LoginUiEvent.ValidateLoginForm -> showToast(getLoginValidationMessage(event.status))
-            is LoginUiEvent.ValidateRecoverForm -> showToast(getRecoverValidationMessage(event.status))
-            is LoginUiEvent.ValidateRegisterForm -> showToast(getRegisterValidationMessage(event.status))
-            else -> {}
+    @Composable
+    private fun HandleLoginEvents(
+        event: LoginUiEvent,
+        navController: NavHostController,
+    ) {
+        LaunchedEffect(event) {
+            when (event) {
+                LoginUiEvent.Initial -> {}
+                is LoginUiEvent.Error -> showToast(handleError(event.exception))
+                is LoginUiEvent.ValidateRegisterForm -> showToast(getRegisterValidationMessage(event.status))
+                is LoginUiEvent.ValidateRecoverForm -> showToast(getRecoverValidationMessage(event.status))
+                is LoginUiEvent.ValidateLoginForm -> showToast(getLoginValidationMessage(event.status))
+                is LoginUiEvent.NavigateToValidateRegister -> goToValidateRegister(navController)
+                is LoginUiEvent.NavigateToValidateRecover -> navController.navigate(ValidateRecover)
+                is LoginUiEvent.NavigateToOrder -> goToOrder()
+            }
         }
     }
 
@@ -97,6 +127,11 @@ class LoginActivity : ComponentActivity() {
             RegisterStatus.PASSWORD_NOT_SAME -> getString(R.string.passwords_do_not_match)
             else -> ""
         }
+
+    private fun goToValidateRegister(navController: NavHostController) {
+        viewModel.emailHasBenVerified()
+        navController.navigate(ValidateRegister)
+    }
 
     private fun goToOrder() {
         nextActivityEnd(

@@ -44,7 +44,7 @@ class LoginNetworkDataSourceImpl @Inject constructor(
     override suspend fun isEmailVerified(): Boolean =
         runCatching {
             firebaseAuth.isEmailVerified()
-        }.getOrDefault(false)
+        }.getOrDefault(defaultValue = false)
 
     override suspend fun recoverPassword(email: String): Void =
         firebaseAuth.recoverPassword(email).await()
