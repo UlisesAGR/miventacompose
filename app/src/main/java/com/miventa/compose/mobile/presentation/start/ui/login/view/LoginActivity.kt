@@ -14,13 +14,11 @@ import androidx.activity.viewModels
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -36,6 +34,7 @@ import com.miventa.compose.mobile.presentation.start.viewmodel.login.LoginViewMo
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiState
 import com.miventa.compose.mobile.theme.Screen
+import com.miventa.compose.mobile.util.collect
 import com.miventa.compose.mobile.util.handleError
 import com.miventa.compose.mobile.util.nextActivityEnd
 import com.miventa.compose.mobile.util.showToast
@@ -60,17 +59,20 @@ class LoginActivity : ComponentActivity() {
         Screen {
             val navController = rememberNavController()
             val loginUiState by viewModel.loginUiState.collectAsState(LoginUiState())
-            val loginUiEvent by viewModel.loginUiEvent.collectAsState(LoginUiEvent.Initial)
 
-            HandleLoginEvents(loginUiEvent, navController)
+            LaunchedEffect(Unit) {
+                collect(viewModel.loginUiEvent) { loginEvent ->
+                    handleUiEvents(loginEvent)
+                    handleNavigationEvents(loginEvent, navController)
+                }
+            }
 
-            Crossfade(targetState = loginUiState.isLoading) { content ->
-                if (content) {
+            Crossfade(targetState = loginUiState.isLoading) { isLoading ->
+                if (isLoading) {
                     ProgressIndicator(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.background)
-                            .wrapContentSize(Alignment.Center),
+                            .background(MaterialTheme.colorScheme.background),
                     )
                 } else {
                     LoginNavigationWrapper(
@@ -83,22 +85,22 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun HandleLoginEvents(
-        event: LoginUiEvent,
-        navController: NavHostController,
-    ) {
-        LaunchedEffect(event) {
-            when (event) {
-                LoginUiEvent.Initial -> {}
-                is LoginUiEvent.Error -> showToast(handleError(event.exception))
-                is LoginUiEvent.ValidateRegisterForm -> showToast(getRegisterValidationMessage(event.status))
-                is LoginUiEvent.ValidateRecoverForm -> showToast(getRecoverValidationMessage(event.status))
-                is LoginUiEvent.ValidateLoginForm -> showToast(getLoginValidationMessage(event.status))
-                is LoginUiEvent.NavigateToValidateRegister -> goToValidateRegister(navController)
-                is LoginUiEvent.NavigateToValidateRecover -> navController.navigate(ValidateRecover)
-                is LoginUiEvent.NavigateToOrder -> goToOrder()
-            }
+    private fun handleUiEvents(event: LoginUiEvent) {
+        when (event) {
+            is LoginUiEvent.Error -> showToast(handleError(event.exception))
+            is LoginUiEvent.ValidateRegisterForm -> showToast(getRegisterValidationMessage(event.status))
+            is LoginUiEvent.ValidateRecoverForm -> showToast(getRecoverValidationMessage(event.status))
+            is LoginUiEvent.ValidateLoginForm -> showToast(getLoginValidationMessage(event.status))
+            else -> Unit
+        }
+    }
+
+    private fun handleNavigationEvents(event: LoginUiEvent, navController: NavHostController) {
+        when (event) {
+            is LoginUiEvent.NavigateToValidateRegister -> goToValidateRegister(navController)
+            is LoginUiEvent.NavigateToValidateRecover -> goToValidateRecover(navController)
+            is LoginUiEvent.NavigateToOrder -> goToOrder()
+            else -> Unit
         }
     }
 
@@ -128,7 +130,13 @@ class LoginActivity : ComponentActivity() {
             else -> ""
         }
 
+    private fun goToValidateRecover(navController: NavHostController) {
+        viewModel.clearUiState()
+        navController.navigate(ValidateRecover)
+    }
+
     private fun goToValidateRegister(navController: NavHostController) {
+        viewModel.clearUiState()
         viewModel.emailHasBenVerified()
         navController.navigate(ValidateRegister)
     }

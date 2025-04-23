@@ -17,12 +17,10 @@ data class LoginInteractions(
 
 data class RecoverInteractions(
     val navigateToLogin: () -> Unit,
-    val navigateToValidateRecover: () -> Unit,
 )
 
 data class RegisterInteractions(
     val navigateToWelcome: () -> Unit,
-    val navigateToValidateRegister: () -> Unit,
 )
 
 data class ValidateRegisterInteractions(

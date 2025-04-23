@@ -33,14 +33,14 @@ fun LoginNavigationWrapper(
             WelcomeScreen(
                 welcomeInteractions = WelcomeInteractions(
                     navigateToLogin = {
+                        viewModel.clearUiState()
                         navController.navigate(Login) {
                             popUpTo(Login) { inclusive = true }
                         }
-                        viewModel.clearUiState()
                     },
                     navigateToRegister = {
-                        navController.navigate(Register)
                         viewModel.clearUiState()
+                        navController.navigate(Register)
                     },
                 )
             )
@@ -51,12 +51,12 @@ fun LoginNavigationWrapper(
                 loginUiState,
                 loginInteractions = LoginInteractions(
                     navigateToWelcome = {
-                        navController.popBackStack()
                         viewModel.clearUiState()
+                        navController.popBackStack()
                     },
                     navigateToRecover = {
-                        navController.navigate(Recover)
                         viewModel.clearUiState()
+                        navController.navigate(Recover)
                     },
                 )
             )
@@ -67,12 +67,8 @@ fun LoginNavigationWrapper(
                 loginUiState,
                 recoverInteractions = RecoverInteractions(
                     navigateToLogin = {
+                        viewModel.clearUiState()
                         navController.popBackStack()
-                        viewModel.clearUiState()
-                    },
-                    navigateToValidateRecover = {
-                        navController.navigate(ValidateRecover)
-                        viewModel.clearUiState()
                     },
                 ),
             )
@@ -80,10 +76,10 @@ fun LoginNavigationWrapper(
         composable<ValidateRecover> {
             ValidateRecoverScreen(
                 navigateToLogin = {
+                    viewModel.clearUiState()
                     navController.navigate(Login) {
                         popUpTo(Login) { inclusive = true }
                     }
-                    viewModel.clearUiState()
                 },
             )
         }
@@ -93,12 +89,8 @@ fun LoginNavigationWrapper(
                 loginUiState,
                 registerInteractions = RegisterInteractions(
                     navigateToWelcome = {
+                        viewModel.clearUiState()
                         navController.popBackStack()
-                        viewModel.clearUiState()
-                    },
-                    navigateToValidateRegister = {
-                        navController.navigate(ValidateRegister)
-                        viewModel.clearUiState()
                     },
                 )
             )
@@ -108,14 +100,14 @@ fun LoginNavigationWrapper(
                 loginUiState,
                 validateRegisterInteractions = ValidateRegisterInteractions(
                     navigateToRegister = {
-                        navController.popBackStack()
                         viewModel.clearUiState()
+                        navController.popBackStack()
                     },
                     navigateToRegisterSuccess = {
+                        viewModel.clearUiState()
                         navController.navigate(RegisterSuccess) {
                             popUpTo(ValidateRegister) { inclusive = true }
                         }
-                        viewModel.clearUiState()
                     }
                 )
             )
@@ -123,10 +115,10 @@ fun LoginNavigationWrapper(
         composable<RegisterSuccess> {
             RegisterSuccessScreen(
                 navigateToWelcome = {
+                    viewModel.clearUiState()
                     navController.navigate(Welcome) {
                         popUpTo(Welcome) { inclusive = false }
                     }
-                    viewModel.clearUiState()
                 },
             )
         }

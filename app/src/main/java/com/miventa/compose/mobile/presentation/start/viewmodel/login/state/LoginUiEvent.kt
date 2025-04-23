@@ -10,7 +10,6 @@ import com.miventa.compose.mobile.domain.model.login.RecoverStatus
 import com.miventa.compose.mobile.domain.model.login.RegisterStatus
 
 sealed class LoginUiEvent {
-    internal data object Initial : LoginUiEvent()
     internal data class Error(val exception: Throwable?) : LoginUiEvent()
 
     internal data class ValidateRegisterForm(val status: RegisterStatus) : LoginUiEvent()

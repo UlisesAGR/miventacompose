@@ -20,6 +20,13 @@ import com.miventa.compose.mobile.domain.usecase.login.validation.ValidationReco
 import com.miventa.compose.mobile.domain.usecase.login.validation.ValidationRegisterUseCase
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginChangeEvent
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.Error
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.NavigateToOrder
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.NavigateToValidateRecover
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.NavigateToValidateRegister
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.ValidateLoginForm
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.ValidateRecoverForm
+import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiEvent.ValidateRegisterForm
 import com.miventa.compose.mobile.presentation.start.viewmodel.login.state.LoginUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -46,7 +53,7 @@ class LoginViewModel @Inject constructor(
     private val _loginUiState = MutableStateFlow(LoginUiState())
     val loginUiState: StateFlow<LoginUiState> = _loginUiState
 
-    private var _loginUiEvent = MutableSharedFlow<LoginUiEvent>()
+    private var _loginUiEvent = MutableSharedFlow<LoginUiEvent>(extraBufferCapacity = 1)
     val loginUiEvent: SharedFlow<LoginUiEvent> = _loginUiEvent
 
     fun onChangeEvent(event: LoginChangeEvent) = viewModelScope.launch {
@@ -74,16 +81,15 @@ class LoginViewModel @Inject constructor(
     ) = viewModelScope.launch {
         when (validationLoginUseCase(email, password)) {
             LoginStatus.EMPTY_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateLoginForm(status = LoginStatus.EMPTY_EMAIL))
+                _loginUiEvent.emit(ValidateLoginForm(status = LoginStatus.EMPTY_EMAIL))
 
             LoginStatus.INVALID_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateLoginForm(status = LoginStatus.INVALID_EMAIL))
+                _loginUiEvent.emit(ValidateLoginForm(status = LoginStatus.INVALID_EMAIL))
 
             LoginStatus.PASSWORD_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateLoginForm(status = LoginStatus.PASSWORD_EMAIL))
+                _loginUiEvent.emit(ValidateLoginForm(status = LoginStatus.PASSWORD_EMAIL))
 
-            LoginStatus.SUCCESS ->
-                login(email, password)
+            LoginStatus.SUCCESS -> login(email, password)
         }
     }
 
@@ -96,23 +102,22 @@ class LoginViewModel @Inject constructor(
         loginUserUseCase(email, password)
             .onSuccess {
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.NavigateToOrder)
+                _loginUiEvent.emit(NavigateToOrder)
             }.onFailure { exception ->
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.Error(exception))
+                _loginUiEvent.emit(Error(exception))
             }
     }
 
     fun onRecoverChanged(email: String) = viewModelScope.launch {
         when (validationRecoverUseCase(email)) {
             RecoverStatus.EMPTY_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRecoverForm(status = RecoverStatus.EMPTY_EMAIL))
+                _loginUiEvent.emit(ValidateRecoverForm(status = RecoverStatus.EMPTY_EMAIL))
 
             RecoverStatus.INVALID_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRecoverForm(status = RecoverStatus.INVALID_EMAIL))
+                _loginUiEvent.emit(ValidateRecoverForm(status = RecoverStatus.INVALID_EMAIL))
 
-            RecoverStatus.SUCCESS ->
-                recoverPassword(email)
+            RecoverStatus.SUCCESS -> recoverPassword(email)
         }
     }
 
@@ -122,11 +127,11 @@ class LoginViewModel @Inject constructor(
         recoverPasswordUseCase(email)
             .onSuccess {
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.NavigateToValidateRecover)
+                _loginUiEvent.emit(NavigateToValidateRecover)
             }
             .onFailure { exception ->
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.Error(exception))
+                _loginUiEvent.emit(Error(exception))
             }
     }
 
@@ -137,25 +142,24 @@ class LoginViewModel @Inject constructor(
     ) = viewModelScope.launch {
         when (validationRegisterUseCase(email, password, passwordConfirm)) {
             RegisterStatus.EMPTY_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.EMPTY_EMAIL))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.EMPTY_EMAIL))
 
             RegisterStatus.INVALID_EMAIL ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.INVALID_EMAIL))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.INVALID_EMAIL))
 
             RegisterStatus.EMPTY_PASSWORD ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.EMPTY_PASSWORD))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.EMPTY_PASSWORD))
 
             RegisterStatus.PASSWORD_LENGTH ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.PASSWORD_LENGTH))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.PASSWORD_LENGTH))
 
             RegisterStatus.CONFIRM_PASSWORD_LENGTH ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.CONFIRM_PASSWORD_LENGTH))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.CONFIRM_PASSWORD_LENGTH))
 
             RegisterStatus.PASSWORD_NOT_SAME ->
-                _loginUiEvent.emit(LoginUiEvent.ValidateRegisterForm(status = RegisterStatus.PASSWORD_NOT_SAME))
+                _loginUiEvent.emit(ValidateRegisterForm(status = RegisterStatus.PASSWORD_NOT_SAME))
 
-            RegisterStatus.SUCCESS ->
-                registerUser(email, password)
+            RegisterStatus.SUCCESS -> registerUser(email, password)
         }
     }
 
@@ -171,7 +175,7 @@ class LoginViewModel @Inject constructor(
             }
             .onFailure { exception ->
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.Error(exception))
+                _loginUiEvent.emit(Error(exception))
             }
     }
 
@@ -180,18 +184,18 @@ class LoginViewModel @Inject constructor(
         sendVerificationEmailUserUseCase()
             .onSuccess {
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.NavigateToValidateRegister)
+                _loginUiEvent.emit(NavigateToValidateRegister)
             }
             .onFailure { exception ->
                 _loginUiState.value = _loginUiState.value.copy(isLoading = false)
-                _loginUiEvent.emit(LoginUiEvent.Error(exception))
+                _loginUiEvent.emit(Error(exception))
 
             }
     }
 
     fun emailHasBenVerified() = viewModelScope.launch {
         emailHasBenVerifiedUseCase().catch { exception ->
-            _loginUiEvent.emit(LoginUiEvent.Error(exception))
+            _loginUiEvent.emit(Error(exception))
         }.collect { isEmailVerified ->
             _loginUiState.value = _loginUiState.value.copy(isEmailVerified = isEmailVerified)
         }
