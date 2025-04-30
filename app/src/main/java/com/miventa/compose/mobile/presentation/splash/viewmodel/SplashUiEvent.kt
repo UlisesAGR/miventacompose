@@ -1,0 +1,12 @@
+/*
+ * SplashUiEvent.kt
+ * Created by Ulises Gonzalez
+ * Copyright (c) 2025. All rights reserved
+ */
+package com.miventa.compose.mobile.presentation.splash.viewmodel
+
+sealed class SplashUiEvent {
+    internal data class Error(val exception: Throwable?) : SplashUiEvent()
+    internal data object GoToAuth : SplashUiEvent()
+    internal data object GoToOrder : SplashUiEvent()
+}

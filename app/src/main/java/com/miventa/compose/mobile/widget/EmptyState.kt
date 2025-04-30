@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,19 +36,20 @@ fun EmptyState(
             alignment = Alignment.CenterVertically,
             space = dimensionResource(id = R.dimen.space_big),
         ),
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Image(
             painter = painterResource(id = R.drawable.il_logo),
             contentDescription = title,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(2f)
+                .aspectRatio(ratio = 2f)
                 .clip(MaterialTheme.shapes.small),
         )
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelSmall,
         )
     }
 }
@@ -65,14 +67,14 @@ fun EmptyStateRetry(
             dimensionResource(id = R.dimen.space_big),
             alignment = Alignment.CenterVertically,
         ),
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_big)),
     ) {
         Image(
             painter = painterResource(id = R.drawable.il_logo),
             contentDescription = title,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(2f)
+                .aspectRatio(ratio = 2f)
                 .clip(MaterialTheme.shapes.small),
         )
         Text(

@@ -5,6 +5,5 @@
  */
 package com.miventa.compose.mobile.util
 
-class ValidateYourEmailException : Exception()
 class ExistProductException : Exception()
 class NoReadProductsException : Exception()

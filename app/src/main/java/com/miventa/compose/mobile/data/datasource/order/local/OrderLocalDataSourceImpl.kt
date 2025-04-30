@@ -7,13 +7,11 @@ package com.miventa.compose.mobile.data.datasource.order.local
 
 import com.miventa.compose.mobile.data.local.database.dao.ProductsDao
 import com.miventa.compose.mobile.data.local.model.ProductEntity
-import com.miventa.compose.mobile.data.local.preference.PreferencesManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class OrderLocalDataSourceImpl @Inject constructor(
     private val productsDao: ProductsDao,
-    private val preferences: PreferencesManager,
 ) : OrderLocalDataSource {
 
     override suspend fun createProduct(product: ProductEntity) {
@@ -44,10 +42,4 @@ class OrderLocalDataSourceImpl @Inject constructor(
         runCatching {
             productsDao.productExist(email, productName)
         }.getOrNull()
-
-    override suspend fun readInfoValue(): Boolean =
-        preferences.readInfoValue()
-
-    override suspend fun updateInfoValue(value: Boolean) =
-        preferences.updateInfoValue(value)
 }

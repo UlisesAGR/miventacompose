@@ -26,8 +26,6 @@ fun Context.handleError(exception: Throwable?): String {
         is UnknownHostException, is ConnectException, is SocketException -> getString(R.string.check_your_internet_connection)
         is SocketTimeoutException, is TimeoutException -> getString(R.string.timeout)
 
-        is ValidateYourEmailException -> getString(R.string.please_verify_your_email)
-
         is FirebaseAuthUserCollisionException -> getString(R.string.email_is_already_registered)
         is FirebaseAuthInvalidUserException -> getString(R.string.invalid_user)
         is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalid_credentials)

@@ -8,8 +8,10 @@
     <!-- App -->
     <string name="example">Example</string>
 
+    <!-- Inter -->
+    <string name="price_inter">Price: %1$s</string>
+
     <!-- Handler -->
-    <string name="please_verify_your_email">Please create o verify your email</string>
     <string name="check_your_internet_connection">Check your internet connection</string>
     <string name="timeout">Timeout</string>
     <string name="please_try_again_later">At the moment we cannot perform this action, please try again later</string>
@@ -77,11 +79,17 @@
     <string name="sign_in_and_start_making_your_sales">Sign in and start making your sales</string>
     <string name="accept">Accept</string>
 
+    <!-- Validate Modify Status -->
+    <string name="empty_name">Empty name</string>
+    <string name="empty_price">Empty price</string>
+
     <!-- Order Screen -->
     <string name="order">Order</string>
+    <string name="here_you_can_place_your_orders_when_you_create_your_products">Here you can place your orders when you create your products</string>
 
     <!-- Edit Screen -->
     <string name="edit">Edit</string>
+    <string name="here_you_can_create_your_products_update_and_delete_them">Here you can create your products, update, and delete them</string>
 
     <!-- Profile Screen -->
     <string name="profile">Profile</string>
@@ -89,5 +97,17 @@
     <string name="logout">Logout</string>
     <string name="thank_you_for_sharing">Thank you for sharing</string>
     <string name="sharing_error">Sharing error</string>
+
+    <!-- Modify product Screen -->
+    <string name="modify">Modify</string>
+    <string name="give_your_product_a_name">Give your product a name</string>
+    <string name="name">Name</string>
+    <string name="put_a_price_on_your_product">Put a price on your product</string>
+    <string name="price">Price</string>
+    <string name="create">Create</string>
+    <string name="add_product">Add product</string>
+
+    <!-- Product Item -->
+    <string name="delete">Delete</string>
 
 </resources>

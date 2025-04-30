@@ -17,7 +17,4 @@ interface OrderLocalDataSource {
         email: String,
         productName: String,
     ): ProductEntity?
-
-    suspend fun readInfoValue(): Boolean
-    suspend fun updateInfoValue(value: Boolean)
 }

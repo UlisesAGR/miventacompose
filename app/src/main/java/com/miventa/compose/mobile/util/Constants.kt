@@ -7,6 +7,7 @@ package com.miventa.compose.mobile.util
 
 object Constants {
     const val TIME_ANIMATION = 800
+    const val ANIMATION_DURATION = 500
 
     const val INFO = "info"
     const val ERROR = "Error"

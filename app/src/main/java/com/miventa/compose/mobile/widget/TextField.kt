@@ -31,6 +31,48 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.miventa.compose.mobile.R
 
 @Composable
+fun TextField(
+    text: String,
+    hint: String,
+    imeAction: ImeAction,
+    onTextFieldChanged: (String) -> Unit,
+) {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = text,
+        onValueChange = { onTextFieldChanged(it) },
+        singleLine = true,
+        maxLines = 1,
+        label = { Text(hint) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = imeAction,
+        ),
+    )
+}
+
+@Composable
+fun PriceTextField(
+    text: String,
+    hint: String,
+    imeAction: ImeAction,
+    onTextFieldChanged: (String) -> Unit,
+) {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = text,
+        onValueChange = { onTextFieldChanged(it) },
+        singleLine = true,
+        maxLines = 1,
+        label = { Text(hint) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Decimal,
+            imeAction = imeAction,
+        ),
+    )
+}
+
+@Composable
 fun EmailTextField(
     email: String,
     hint: String,
@@ -104,6 +146,18 @@ private fun TextFieldPreview() {
             .fillMaxWidth()
             .padding(dimensionResource(id = R.dimen.padding_big)),
     ) {
+        TextField(
+            text = stringResource(R.string.example),
+            hint = stringResource(R.string.example),
+            imeAction = ImeAction.Next,
+            onTextFieldChanged = {},
+        )
+        PriceTextField(
+            text = stringResource(R.string.example),
+            hint = stringResource(R.string.example),
+            imeAction = ImeAction.Next,
+            onTextFieldChanged = {},
+        )
         EmailTextField(
             email = stringResource(R.string.example),
             hint = stringResource(R.string.example),

@@ -120,7 +120,6 @@ private fun getColorScheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> darkScheme
         else -> lightScheme
     }
@@ -150,7 +149,7 @@ private fun SetupWindowAppearance(
 
 @Composable
 fun Screen(content: @Composable () -> Unit) {
-    AppTheme {
+    AppTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.safeDrawingPadding(),
             color = MaterialTheme.colorScheme.background,

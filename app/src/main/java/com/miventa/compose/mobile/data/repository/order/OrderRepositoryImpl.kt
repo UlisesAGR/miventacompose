@@ -47,14 +47,6 @@ class OrderRepositoryImpl @Inject constructor(
         orderLocalDataSource.productExist(email, productName)
     }
 
-    override suspend fun readInfoValue(): Boolean = withContext(dispatcher) {
-        orderLocalDataSource.readInfoValue()
-    }
-
-    override suspend fun updateInfoValue(value: Boolean) = withContext(dispatcher) {
-        orderLocalDataSource.updateInfoValue(value)
-    }
-
     override suspend fun signOut() = withContext(dispatcher) {
         orderNetworkDataSource.signOut()
     }

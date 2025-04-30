@@ -6,13 +6,14 @@
 <resources>
 
     <!--Space-->
-    <dimen name="space.small">16dp</dimen>
-    <dimen name="space">24dp</dimen>
+    <dimen name="space.small">8dp</dimen>
+    <dimen name="space">16dp</dimen>
     <dimen name="space.big">32dp</dimen>
 
     <!--Padding-->
     <dimen name="padding.small">8dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="padding.big">32dp</dimen>
+    <dimen name="padding.bottom">80dp</dimen>
 
 </resources>

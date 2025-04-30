@@ -111,6 +111,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlin.serialization)
     implementation(libs.konfetti.compose)
+    implementation(libs.io.coil)
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

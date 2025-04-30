@@ -20,7 +20,5 @@ interface OrderRepository {
         productName: String,
     ): ProductEntity?
 
-    suspend fun readInfoValue(): Boolean
-    suspend fun updateInfoValue(value: Boolean)
     suspend fun signOut()
 }
