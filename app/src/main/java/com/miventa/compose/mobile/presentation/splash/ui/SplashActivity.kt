@@ -37,9 +37,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setFlows() {
-        collect(viewModel.splashUiEvent) { state ->
-            when (state) {
-                is SplashUiEvent.Error -> handleError(state.exception)
+        collect(viewModel.splashUiEvent) { splashUiEvent ->
+            when (splashUiEvent) {
+                is SplashUiEvent.Error -> handleError(splashUiEvent.exception)
                 is SplashUiEvent.GoToAuth -> goToLogin()
                 is SplashUiEvent.GoToOrder -> goToOrder()
             }

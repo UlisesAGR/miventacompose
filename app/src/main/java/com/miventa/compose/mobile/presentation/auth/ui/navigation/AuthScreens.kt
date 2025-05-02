@@ -11,21 +11,21 @@ object Graph {
     const val REGISTER = "register_graph"
 }
 
-sealed class WelcomeScreen(val route: String) {
-    data object Welcome : WelcomeScreen(route = "welcome")
+sealed class WelcomeScreens(val route: String) {
+    data object Welcome : WelcomeScreens(route = "welcome")
 }
 
-sealed class LoginScreen(val route: String) {
-    data object Login : WelcomeScreen(route = "login")
+sealed class LoginScreens(val route: String) {
+    data object Login : LoginScreens(route = "login")
 }
 
-sealed class RecoverScreen(val route: String) {
-    data object Recover : WelcomeScreen(route = "recover")
-    data object ValidateRecover : WelcomeScreen(route = "validate_recover")
+sealed class RecoverScreens(val route: String) {
+    data object Recover : RecoverScreens(route = "recover")
+    data object ValidateRecover : RecoverScreens(route = "validate_recover")
 }
 
-sealed class RegisterScreen(val route: String) {
-    data object Register : WelcomeScreen(route = "register")
-    data object ValidateRegister : WelcomeScreen(route = "validate_register")
-    data object RegisterSuccess : WelcomeScreen(route = "register_success")
+sealed class RegisterScreens(val route: String) {
+    data object Register : RegisterScreens(route = "register")
+    data object ValidateRegister : RegisterScreens(route = "validate_register")
+    data object RegisterSuccess : RegisterScreens(route = "register_success")
 }

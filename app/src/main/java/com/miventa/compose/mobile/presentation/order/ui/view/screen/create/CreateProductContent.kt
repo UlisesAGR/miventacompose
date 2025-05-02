@@ -55,7 +55,7 @@ fun CreateProductContent(
                     IconButton(
                         onClick = {
                             createInteractions.navigateToOrder()
-                        }
+                        },
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,

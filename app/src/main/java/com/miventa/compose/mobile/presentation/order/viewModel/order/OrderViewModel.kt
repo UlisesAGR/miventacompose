@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.VisibleForTesting
 import javax.inject.Inject
@@ -46,7 +47,7 @@ class OrderViewModel @Inject constructor(
         readProductsUseCase().catch { exception ->
             _orderUiEvent.emit(OrderUiEvent.Error(exception))
         }.collect { products ->
-            _orderUiState.value = _orderUiState.value.copy(productList = products)
+            _orderUiState.update { it.copy(productList = products) }
         }
     }
 
@@ -61,7 +62,7 @@ class OrderViewModel @Inject constructor(
     fun readCurrentEmail() = viewModelScope.launch {
         readCurrentUserUseCase()
             .onSuccess { email ->
-                _orderUiState.value = _orderUiState.value.copy(currentEmail = email)
+                _orderUiState.update { it.copy(currentEmail = email) }
             }
             .onFailure { exception ->
                 _orderUiEvent.emit(OrderUiEvent.Error(exception))
@@ -69,14 +70,14 @@ class OrderViewModel @Inject constructor(
     }
 
     fun singOut() = viewModelScope.launch {
-        _orderUiState.value = _orderUiState.value.copy(isLoading = true)
+        _orderUiState.update { it.copy(isLoading = true) }
         singOutUseCase()
             .onSuccess {
-                _orderUiState.value = _orderUiState.value.copy(isLoading = false)
+                _orderUiState.update { it.copy(isLoading = false) }
                 _orderUiEvent.emit(OrderUiEvent.NavigateToLogin)
             }
             .onFailure { exception ->
-                _orderUiState.value = _orderUiState.value.copy(isLoading = false)
+                _orderUiState.update { it.copy(isLoading = false) }
                 _orderUiEvent.emit(OrderUiEvent.Error(exception))
             }
     }

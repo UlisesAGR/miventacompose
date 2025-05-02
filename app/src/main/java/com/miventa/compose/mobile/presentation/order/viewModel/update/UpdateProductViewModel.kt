@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.VisibleForTesting
 import javax.inject.Inject
@@ -35,12 +36,12 @@ class UpdateProductViewModel @Inject constructor(
     val updateProductUiEvent: SharedFlow<UpdateProductUiEvent> = _updateProductUiEvent
 
     fun onUpdateProductChangeEvent(event: UpdateProductChangeEvent) = viewModelScope.launch {
-        _updateProductUiState.value = when (event) {
+        when (event) {
             is UpdateProductChangeEvent.Name ->
-                _updateProductUiState.value.copy(name = event.name)
+                _updateProductUiState.update { it.copy(name = event.name) }
 
             is UpdateProductChangeEvent.Price ->
-                _updateProductUiState.value.copy(price = event.price)
+                _updateProductUiState.update { it.copy(price = event.price) }
         }
     }
 

@@ -11,9 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.Graph
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterInteractions
+import com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreens
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterSuccessScreenInteractions
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.ValidateRegisterInteractions
-import com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeScreen
+import com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeScreens
 import com.miventa.compose.mobile.presentation.auth.ui.view.screen.register.RegisterScreen
 import com.miventa.compose.mobile.presentation.auth.ui.view.screen.register.RegisterSuccessScreen
 import com.miventa.compose.mobile.presentation.auth.ui.view.screen.register.ValidateRegisterScreen
@@ -21,42 +22,42 @@ import com.miventa.compose.mobile.presentation.auth.ui.view.screen.register.Vali
 fun NavGraphBuilder.registerNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.REGISTER,
-        startDestination = com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.Register.route,
+        startDestination = RegisterScreens.Register.route,
     ) {
-        composable(com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.Register.route) {
+        composable(RegisterScreens.Register.route) {
             RegisterScreen(
                 registerInteractions = RegisterInteractions(
                     navigateToWelcome = {
                         navController.popBackStack()
                     },
                     navigateToValidateRegister = {
-                        navController.navigate(com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.ValidateRegister.route) {
+                        navController.navigate(RegisterScreens.ValidateRegister.route) {
                             launchSingleTop = true
                         }
                     },
                 )
             )
         }
-        composable(com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.ValidateRegister.route) {
+        composable(RegisterScreens.ValidateRegister.route) {
             ValidateRegisterScreen(
                 validateRegisterInteractions = ValidateRegisterInteractions(
                     navigateToRegister = {
                         navController.popBackStack()
                     },
                     navigateToRegisterSuccess = {
-                        navController.navigate(com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.RegisterSuccess.route) {
+                        navController.navigate(RegisterScreens.RegisterSuccess.route) {
                             launchSingleTop = true
                         }
                     },
                 )
             )
         }
-        composable(com.miventa.compose.mobile.presentation.auth.ui.navigation.RegisterScreen.RegisterSuccess.route) {
+        composable(RegisterScreens.RegisterSuccess.route) {
             RegisterSuccessScreen(
                 registerSuccessScreenInteractions = RegisterSuccessScreenInteractions(
                     navigateToWelcome = {
-                        navController.navigate(WelcomeScreen.Welcome.route) {
-                            popUpTo(WelcomeScreen.Welcome.route) { inclusive = false }
+                        navController.navigate(WelcomeScreens.Welcome.route) {
+                            popUpTo(WelcomeScreens.Welcome.route) { inclusive = false }
                             launchSingleTop = true
                         }
                     },

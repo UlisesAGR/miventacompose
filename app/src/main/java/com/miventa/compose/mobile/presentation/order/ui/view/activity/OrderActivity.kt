@@ -26,7 +26,7 @@ class OrderActivity : ComponentActivity() {
                 OrderContainerScreen(
                     navigateToLogin = {
                         navigateToLogin()
-                    }
+                    },
                 )
             }
         }

@@ -11,7 +11,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.Graph
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.LoginInteractions
+import com.miventa.compose.mobile.presentation.auth.ui.navigation.LoginScreens
 import com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeInteractions
+import com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeScreens
 import com.miventa.compose.mobile.presentation.auth.ui.view.screen.login.LoginScreen
 import com.miventa.compose.mobile.presentation.auth.ui.view.screen.welcome.WelcomeScreen
 
@@ -21,13 +23,13 @@ fun AuthNavigationGraph(navigateToOrder: () -> Unit) {
     NavHost(
         navController = navController,
         route = Graph.AUTH,
-        startDestination = com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeScreen.Welcome.route,
+        startDestination = WelcomeScreens.Welcome.route,
     ) {
-        composable(com.miventa.compose.mobile.presentation.auth.ui.navigation.WelcomeScreen.Welcome.route) {
+        composable(WelcomeScreens.Welcome.route) {
             WelcomeScreen(
                 welcomeInteractions = WelcomeInteractions(
                     navigateToLogin = {
-                        navController.navigate(com.miventa.compose.mobile.presentation.auth.ui.navigation.LoginScreen.Login.route) {
+                        navController.navigate(LoginScreens.Login.route) {
                             launchSingleTop = true
                         }
                     },
@@ -39,7 +41,7 @@ fun AuthNavigationGraph(navigateToOrder: () -> Unit) {
                 )
             )
         }
-        composable(com.miventa.compose.mobile.presentation.auth.ui.navigation.LoginScreen.Login.route) {
+        composable(LoginScreens.Login.route) {
             LoginScreen(
                 loginInteractions = LoginInteractions(
                     navigateToWelcome = {

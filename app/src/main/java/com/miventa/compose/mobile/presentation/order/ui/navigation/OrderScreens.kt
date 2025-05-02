@@ -37,10 +37,10 @@ sealed class OrderScreens<T>(
     )
 }
 
-sealed class CreateScreen(val route: String) {
-    data object CreateProduct : CreateScreen(route = "create_product")
+sealed class CreateScreens(val route: String) {
+    data object CreateProduct : CreateScreens(route = "create_product")
 }
 
-sealed class UpdateScreen(val route: String) {
-    data object UpdateProduct : CreateScreen(route = "update_product")
+sealed class UpdateScreens(val route: String) {
+    data object UpdateProduct : UpdateScreens(route = "update_product")
 }
