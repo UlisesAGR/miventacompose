@@ -21,16 +21,14 @@ import com.miventa.compose.mobile.util.handleError
 import com.miventa.compose.mobile.util.showToast
 
 @Composable
-fun CreateProductScreen(
-    viewModel: CreateProductViewModel = hiltViewModel(),
-    createInteractions: CreateInteractions,
-) {
+fun CreateProductScreen(createInteractions: CreateInteractions) {
     val context = LocalContext.current
+    val viewModel: CreateProductViewModel = hiltViewModel()
     val createProductUiState by viewModel.createProductUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.createProductUiEvent.collect { createProductUiEvent ->
-            context.handleCreateProductEvent(createProductUiEvent, createInteractions)
+        viewModel.createProductUiEvent.collect { event ->
+            context.handleCreateProductEvent(event, createInteractions)
         }
     }
 

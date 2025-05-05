@@ -11,12 +11,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.miventa.compose.mobile.presentation.order.ui.navigation.CreateInteractions
 import com.miventa.compose.mobile.presentation.order.ui.navigation.CreateScreens
-import com.miventa.compose.mobile.presentation.order.ui.navigation.Graph
 import com.miventa.compose.mobile.presentation.order.ui.view.screen.create.CreateProductScreen
 
 fun NavGraphBuilder.createNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.CREATE,
+        route = CreateScreens.CreateGraph.route,
         startDestination = CreateScreens.CreateProduct.route,
     ) {
         composable(route = CreateScreens.CreateProduct.route) {

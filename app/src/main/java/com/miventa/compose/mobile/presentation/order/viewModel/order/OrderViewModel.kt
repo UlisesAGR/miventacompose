@@ -44,10 +44,17 @@ class OrderViewModel @Inject constructor(
 
     @VisibleForTesting
     fun readProducts() = viewModelScope.launch {
+        _orderUiState.update { state -> state.copy(isLoading = true) }
         readProductsUseCase().catch { exception ->
             _orderUiEvent.emit(OrderUiEvent.Error(exception))
+            _orderUiState.update { state -> state.copy(isLoading = false) }
         }.collect { products ->
-            _orderUiState.update { it.copy(productList = products) }
+            _orderUiState.update { state ->
+                state.copy(
+                    productList = products,
+                    isLoading = false,
+                )
+            }
         }
     }
 
@@ -62,7 +69,7 @@ class OrderViewModel @Inject constructor(
     fun readCurrentEmail() = viewModelScope.launch {
         readCurrentUserUseCase()
             .onSuccess { email ->
-                _orderUiState.update { it.copy(currentEmail = email) }
+                _orderUiState.update { state -> state.copy(currentEmail = email) }
             }
             .onFailure { exception ->
                 _orderUiEvent.emit(OrderUiEvent.Error(exception))
@@ -73,12 +80,12 @@ class OrderViewModel @Inject constructor(
         _orderUiState.update { it.copy(isLoading = true) }
         singOutUseCase()
             .onSuccess {
-                _orderUiState.update { it.copy(isLoading = false) }
                 _orderUiEvent.emit(OrderUiEvent.NavigateToLogin)
+                _orderUiState.update { state -> state.copy(isLoading = false) }
             }
             .onFailure { exception ->
-                _orderUiState.update { it.copy(isLoading = false) }
                 _orderUiEvent.emit(OrderUiEvent.Error(exception))
+                _orderUiState.update { state -> state.copy(isLoading = false) }
             }
     }
 }

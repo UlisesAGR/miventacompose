@@ -15,23 +15,15 @@ class CreateProductUseCase @Inject constructor(
     private val orderRepository: OrderRepository,
 ) {
 
-    suspend operator fun invoke(
-        image: String,
-        name: String,
-        price: String,
-    ): Result<Unit> =
+    suspend operator fun invoke(product: ProductModel): Result<Unit> =
         runCatching {
             val email = orderRepository.verifyCurrentUser()
-            if (orderRepository.productExist(email, name) == null) {
-                val product = ProductModel(
-                    id = 0,
-                    name,
-                    price = price.toDouble(),
-                    quantity = 0,
-                    image,
-                    email,
-                )
-                orderRepository.createProduct(product.toEntity())
-            } else throw ExistProductException()
+            orderRepository.productExist(email, productName = product.name)?.let {
+                throw ExistProductException()
+            } ?: product.copy(userEmail = email)
+                .toEntity()
+                .also { product ->
+                    orderRepository.createProduct(product)
+                }
         }
 }

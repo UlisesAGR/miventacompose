@@ -8,6 +8,7 @@ package com.miventa.compose.mobile.presentation.order.viewModel.update
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miventa.compose.mobile.domain.model.order.status.UpdateStatus
+import com.miventa.compose.mobile.domain.usecase.order.local.ProductExistUseCase
 import com.miventa.compose.mobile.domain.usecase.order.local.UpdateProductUseCase
 import com.miventa.compose.mobile.domain.usecase.order.validation.ValidationUpdateProductUseCase
 import com.miventa.compose.mobile.presentation.order.viewModel.update.UpdateProductUiEvent.Error
@@ -26,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateProductViewModel @Inject constructor(
     private val validationUpdateProductUseCase: ValidationUpdateProductUseCase,
+    private val productExistUseCase: ProductExistUseCase,
     private val updateProductUseCase: UpdateProductUseCase,
 ) : ViewModel() {
 
@@ -38,15 +40,18 @@ class UpdateProductViewModel @Inject constructor(
     fun onUpdateProductChangeEvent(event: UpdateProductChangeEvent) = viewModelScope.launch {
         when (event) {
             is UpdateProductChangeEvent.Name ->
-                _updateProductUiState.update { it.copy(name = event.name) }
+                _updateProductUiState.update { state ->
+                    state.copy(product = state.product.copy(name = event.name))
+                }
 
             is UpdateProductChangeEvent.Price ->
-                _updateProductUiState.update { it.copy(price = event.price) }
+                _updateProductUiState.update { state ->
+                    state.copy(product = state.product.copy(price = event.price))
+                }
         }
     }
 
     fun onUpdateProductChanged(
-        image: String,
         name: String,
         price: String,
     ) = viewModelScope.launch {
@@ -57,19 +62,25 @@ class UpdateProductViewModel @Inject constructor(
             UpdateStatus.EMPTY_PRICE ->
                 _updateProductUiEvent.emit(ValidateUpdateStatus(status = UpdateStatus.EMPTY_PRICE))
 
-            UpdateStatus.SUCCESS -> updateProduct(image, name, price)
+            UpdateStatus.SUCCESS -> updateProduct()
         }
     }
 
     @VisibleForTesting
-    fun updateProduct(
-        image: String,
-        name: String,
-        price: String,
-    ) = viewModelScope.launch {
-        updateProductUseCase(image, name, price)
+    fun updateProduct() = viewModelScope.launch {
+        updateProductUseCase(product = _updateProductUiState.value.product)
             .onSuccess {
                 _updateProductUiEvent.emit(NavigateToOrder)
+            }
+            .onFailure { exception ->
+                _updateProductUiEvent.emit(Error(exception))
+            }
+    }
+
+    fun getProductByName(productName: String) = viewModelScope.launch {
+        productExistUseCase(productName)
+            .onSuccess { product ->
+                _updateProductUiState.update { it.copy(product = product) }
             }
             .onFailure { exception ->
                 _updateProductUiEvent.emit(Error(exception))

@@ -43,19 +43,25 @@ class RegisterViewModel @Inject constructor(
     fun onRegisterChangeEvent(event: RegisterChangeEvent) = viewModelScope.launch {
         when (event) {
             is RegisterChangeEvent.Email ->
-                _registerUiState.update { it.copy(email = event.email) }
-
+                _registerUiState.update { state ->
+                    state.copy(email = event.email)
+                }
             is RegisterChangeEvent.Password ->
-                _registerUiState.update { it.copy(password = event.password) }
-
+                _registerUiState.update { state ->
+                    state.copy(password = event.password)
+                }
             is RegisterChangeEvent.PasswordVisibility ->
-                _registerUiState.update { it.copy(passwordHidden = !event.passwordHidden) }
-
+                _registerUiState.update { state ->
+                    state.copy(passwordHidden = !event.passwordHidden)
+                }
             is RegisterChangeEvent.PasswordConfirm ->
-                _registerUiState.update { it.copy(passwordConfirm = event.passwordConfirm) }
-
+                _registerUiState.update { state ->
+                    state.copy(passwordConfirm = event.passwordConfirm)
+                }
             is RegisterChangeEvent.PasswordConfirmVisibility ->
-                _registerUiState.update { it.copy(passwordConfirmHidden = !event.passwordConfirmHidden) }
+                _registerUiState.update { state ->
+                    state.copy(passwordConfirmHidden = !event.passwordConfirmHidden)
+                }
         }
     }
 
@@ -92,13 +98,13 @@ class RegisterViewModel @Inject constructor(
         email: String,
         password: String,
     ) = viewModelScope.launch {
-        _registerUiState.update { it.copy(isLoading = true) }
+        _registerUiState.update { state -> state.copy(isLoading = true) }
         registerUserUseCase(email, password)
             .onSuccess {
                 sendVerificationEmail()
             }
             .onFailure { exception ->
-                _registerUiState.update { it.copy(isLoading = false) }
+                _registerUiState.update { state -> state.copy(isLoading = false) }
                 _registerUiEvent.emit(Error(exception))
             }
     }
@@ -107,11 +113,11 @@ class RegisterViewModel @Inject constructor(
     fun sendVerificationEmail() = viewModelScope.launch {
         sendVerificationEmailUserUseCase()
             .onSuccess {
-                _registerUiState.update { it.copy(isLoading = false) }
+                _registerUiState.update { state -> state.copy(isLoading = false) }
                 _registerUiEvent.emit(NavigateToValidateRegister)
             }
             .onFailure { exception ->
-                _registerUiState.update { it.copy(isLoading = false) }
+                _registerUiState.update { state -> state.copy(isLoading = false) }
                 _registerUiEvent.emit(Error(exception))
 
             }
@@ -121,7 +127,7 @@ class RegisterViewModel @Inject constructor(
         emailHasBenVerifiedUseCase().catch { exception ->
             _registerUiEvent.emit(Error(exception))
         }.collect { isEmailVerified ->
-            _registerUiState.update { it.copy(isEmailVerified = isEmailVerified) }
+            _registerUiState.update { state -> state.copy(isEmailVerified = isEmailVerified) }
         }
     }
 }

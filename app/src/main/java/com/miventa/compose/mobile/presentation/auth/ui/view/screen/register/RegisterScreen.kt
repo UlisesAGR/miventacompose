@@ -32,8 +32,8 @@ fun RegisterScreen(registerInteractions: RegisterInteractions) {
     val registerUiState by viewModel.registerUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.registerUiEvent.collect { registerUiEvent ->
-            context.handleRegisterEvent(registerUiEvent, registerInteractions)
+        viewModel.registerUiEvent.collect { event ->
+            context.handleRegisterEvent(event, registerInteractions)
         }
     }
 

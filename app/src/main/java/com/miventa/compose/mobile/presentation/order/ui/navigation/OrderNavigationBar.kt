@@ -49,7 +49,7 @@ fun OrderNavigationBar(navController: NavHostController) {
 
 @Composable
 fun RowScope.AddItem(
-    screen: OrderScreens<*>,
+    screen: OrderScreens,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {

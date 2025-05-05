@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,16 +32,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.miventa.compose.mobile.R
 
 @Composable
-fun TextField(
+fun NameTextField(
     text: String,
     hint: String,
     imeAction: ImeAction,
+    maxLength: Int,
     onTextFieldChanged: (String) -> Unit,
 ) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = text,
-        onValueChange = { onTextFieldChanged(it) },
+        onValueChange = {
+            if (it.length <= maxLength) {
+                onTextFieldChanged(it)
+            }
+        },
         singleLine = true,
         maxLines = 1,
         label = { Text(hint) },
@@ -48,6 +54,12 @@ fun TextField(
             keyboardType = KeyboardType.Text,
             imeAction = imeAction,
         ),
+        supportingText = {
+            Text(
+                text = "${text.length} / $maxLength",
+                style = MaterialTheme.typography.labelSmall,
+            )
+        },
     )
 }
 
@@ -146,10 +158,11 @@ private fun TextFieldPreview() {
             .fillMaxWidth()
             .padding(dimensionResource(id = R.dimen.padding_big)),
     ) {
-        TextField(
+        NameTextField(
             text = stringResource(R.string.example),
             hint = stringResource(R.string.example),
             imeAction = ImeAction.Next,
+            maxLength = 10,
             onTextFieldChanged = {},
         )
         PriceTextField(

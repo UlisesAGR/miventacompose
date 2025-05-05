@@ -108,8 +108,8 @@ private fun ProductItemPreview() {
         product = ProductModel(
             id = 1,
             name = stringResource(R.string.example),
-            price = 10.0,
-            quantity = 1,
+            price = "10.0",
+            quantity = "1",
             image = "",
             userEmail = "",
         ),

@@ -6,4 +6,5 @@
 package com.miventa.compose.mobile.util
 
 class ExistProductException : Exception()
+class NoExistProductException : Exception()
 class NoReadProductsException : Exception()

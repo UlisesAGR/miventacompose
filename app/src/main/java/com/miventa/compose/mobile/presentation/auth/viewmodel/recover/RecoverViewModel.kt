@@ -36,7 +36,7 @@ class RecoverViewModel @Inject constructor(
     val recoverUiEvent: SharedFlow<RecoverUiEvent> = _recoverUiEvent
 
     fun onRecoverChangeEvent(email: String) = viewModelScope.launch {
-        _recoverUiState.update { it.copy(email = email) }
+        _recoverUiState.update { state -> state.copy(email = email) }
     }
 
     fun onRecoverChanged(email: String) = viewModelScope.launch {
@@ -53,14 +53,14 @@ class RecoverViewModel @Inject constructor(
 
     @VisibleForTesting
     fun recoverPassword(email: String) = viewModelScope.launch {
-        _recoverUiState.update { it.copy(isLoading = true) }
+        _recoverUiState.update { state -> state.copy(isLoading = true) }
         recoverPasswordUseCase(email)
             .onSuccess {
-                _recoverUiState.update { it.copy(isLoading = false) }
+                _recoverUiState.update { state -> state.copy(isLoading = false) }
                 _recoverUiEvent.emit(NavigateToValidateRecover)
             }
             .onFailure { exception ->
-                _recoverUiState.update { it.copy(isLoading = false) }
+                _recoverUiState.update { state -> state.copy(isLoading = false) }
                 _recoverUiEvent.emit(Error(exception))
             }
     }

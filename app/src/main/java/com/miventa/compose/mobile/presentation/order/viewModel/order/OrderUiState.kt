@@ -8,7 +8,7 @@ package com.miventa.compose.mobile.presentation.order.viewModel.order
 import com.miventa.compose.mobile.domain.model.order.ProductModel
 
 data class OrderUiState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val productList: List<ProductModel> = emptyList(),
     val currentEmail: String = "",
 )

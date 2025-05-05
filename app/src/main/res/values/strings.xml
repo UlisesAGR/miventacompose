@@ -9,7 +9,7 @@
     <string name="example">Example</string>
 
     <!-- Inter -->
-    <string name="price_inter">Price: %1$s</string>
+    <string name="price_inter">Price: $%1$s</string>
 
     <!-- Handler -->
     <string name="check_your_internet_connection">Check your internet connection</string>
@@ -98,14 +98,18 @@
     <string name="thank_you_for_sharing">Thank you for sharing</string>
     <string name="sharing_error">Sharing error</string>
 
-    <!-- Modify product Screen -->
-    <string name="modify">Modify</string>
+    <!-- Create product Screen -->
     <string name="give_your_product_a_name">Give your product a name</string>
     <string name="name">Name</string>
     <string name="put_a_price_on_your_product">Put a price on your product</string>
     <string name="price">Price</string>
     <string name="create">Create</string>
+    <string name="create_product">Create product</string>
     <string name="add_product">Add product</string>
+
+    <!-- Create product Screen -->
+    <string name="update">Update</string>
+    <string name="update_product">Update product</string>
 
     <!-- Product Item -->
     <string name="delete">Delete</string>

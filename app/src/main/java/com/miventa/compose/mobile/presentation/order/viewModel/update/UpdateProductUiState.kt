@@ -5,8 +5,15 @@
  */
 package com.miventa.compose.mobile.presentation.order.viewModel.update
 
+import com.miventa.compose.mobile.domain.model.order.ProductModel
+
 data class UpdateProductUiState(
-    val image: String = "",
-    val name: String = "",
-    val price: String = "",
+    val product: ProductModel = ProductModel(
+        id = 0,
+        name = "",
+        price = "",
+        quantity = "",
+        image = "",
+        userEmail = "",
+    ),
 )

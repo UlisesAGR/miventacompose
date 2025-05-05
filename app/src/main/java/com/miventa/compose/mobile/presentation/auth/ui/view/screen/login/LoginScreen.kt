@@ -32,8 +32,8 @@ fun LoginScreen(loginInteractions: LoginInteractions) {
     val loginUiState by viewModel.loginUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.loginUiEvent.collect { loginUiEvent ->
-            context.handleLoginEvent(loginUiEvent, loginInteractions)
+        viewModel.loginUiEvent.collect { event ->
+            context.handleLoginEvent(event, loginInteractions)
         }
     }
 

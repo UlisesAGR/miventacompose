@@ -7,30 +7,24 @@ package com.miventa.compose.mobile.presentation.order.ui.navigation
 
 import com.miventa.compose.mobile.R
 
-object Graph {
-    const val ORDER = "order_graph"
-    const val CREATE = "create_graph"
-    const val UPDATE = "update_graph"
-}
-
-sealed class OrderScreens<T>(
+sealed class OrderScreens(
     val route: String,
     val title: Int,
     val iconId: Int,
 ) {
-    data object Order : OrderScreens<Order>(
+    data object Order : OrderScreens(
         route = "order",
         title = R.string.order,
         iconId = R.drawable.ic_order,
     )
 
-    data object EditOrder : OrderScreens<EditOrder>(
+    data object EditOrder : OrderScreens(
         route = "edit_order",
         title = R.string.edit,
         iconId = R.drawable.ic_edit,
     )
 
-    data object Profile : OrderScreens<Profile>(
+    data object Profile : OrderScreens(
         route = "profile",
         title = R.string.profile,
         iconId = R.drawable.ic_person,
@@ -38,9 +32,13 @@ sealed class OrderScreens<T>(
 }
 
 sealed class CreateScreens(val route: String) {
+    data object CreateGraph : CreateScreens(route = "create_product_graph")
     data object CreateProduct : CreateScreens(route = "create_product")
 }
 
 sealed class UpdateScreens(val route: String) {
-    data object UpdateProduct : UpdateScreens(route = "update_product")
+    data object UpdateGraph : UpdateScreens(route = "update_product_graph")
+    data object UpdateProduct : UpdateScreens(route = "update_product/{productName}") {
+        fun passProductName(productName: String): String = "update_product/$productName"
+    }
 }

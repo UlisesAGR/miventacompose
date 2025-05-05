@@ -38,13 +38,13 @@ class LoginViewModel @Inject constructor(
     fun onLoginChangeEvent(event: LoginChangeEvent) = viewModelScope.launch {
         when (event) {
             is LoginChangeEvent.Email ->
-                _loginUiState.update { it.copy(email = event.email) }
+                _loginUiState.update { state -> state.copy(email = event.email) }
 
             is LoginChangeEvent.Password ->
-                _loginUiState.update { it.copy(password = event.password) }
+                _loginUiState.update { state -> state.copy(password = event.password) }
 
             is LoginChangeEvent.PasswordVisibility ->
-                _loginUiState.update { it.copy(passwordHidden = !event.passwordHidden) }
+                _loginUiState.update { state -> state.copy(passwordHidden = !event.passwordHidden) }
         }
     }
 
@@ -71,13 +71,13 @@ class LoginViewModel @Inject constructor(
         email: String,
         password: String,
     ) = viewModelScope.launch {
-        _loginUiState.update { it.copy(isLoading = true) }
+        _loginUiState.update { state -> state.copy(isLoading = true) }
         loginUserUseCase(email, password)
             .onSuccess {
-                _loginUiState.update { it.copy(isLoading = false) }
+                _loginUiState.update { state -> state.copy(isLoading = false) }
                 _loginUiEvent.emit(NavigateToOrder)
             }.onFailure { exception ->
-                _loginUiState.update { it.copy(isLoading = false) }
+                _loginUiState.update { state -> state.copy(isLoading = false) }
                 _loginUiEvent.emit(Error(exception))
             }
     }

@@ -32,8 +32,8 @@ fun RecoverScreen(recoverInteractions: RecoverInteractions) {
     val recoverUiState by viewModel.recoverUiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.recoverUiEvent.collect { recoverUiEvent ->
-            context.handleRecoverEvent(recoverUiEvent, recoverInteractions)
+        viewModel.recoverUiEvent.collect { event ->
+            context.handleRecoverEvent(event, recoverInteractions)
         }
     }
 

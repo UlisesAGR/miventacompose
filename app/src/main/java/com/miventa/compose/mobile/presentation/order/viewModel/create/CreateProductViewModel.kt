@@ -32,21 +32,25 @@ class CreateProductViewModel @Inject constructor(
     private val _createProductUiState = MutableStateFlow(CreateProductUiState())
     val createProductUiState: StateFlow<CreateProductUiState> = _createProductUiState
 
-    private var _createProductUiEvent = MutableSharedFlow<CreateProductUiEvent>(extraBufferCapacity = 1)
+    private var _createProductUiEvent =
+        MutableSharedFlow<CreateProductUiEvent>(extraBufferCapacity = 1)
     val createProductUiEvent: SharedFlow<CreateProductUiEvent> = _createProductUiEvent
 
     fun onCreateProductChangeEvent(event: CreateProductChangeEvent) = viewModelScope.launch {
         when (event) {
             is CreateProductChangeEvent.Name ->
-                _createProductUiState.update { it.copy(name = event.name) }
+                _createProductUiState.update { state ->
+                    state.copy(product = state.product.copy(name = event.name))
+                }
 
             is CreateProductChangeEvent.Price ->
-                _createProductUiState.update { it.copy(price = event.price) }
+                _createProductUiState.update { state ->
+                    state.copy(product = state.product.copy(price = event.price))
+                }
         }
     }
 
     fun onCreateProductChanged(
-        image: String,
         name: String,
         price: String,
     ) = viewModelScope.launch {
@@ -57,17 +61,13 @@ class CreateProductViewModel @Inject constructor(
             CreateStatus.EMPTY_PRICE ->
                 _createProductUiEvent.emit(ValidateCreateStatus(status = CreateStatus.EMPTY_PRICE))
 
-            CreateStatus.SUCCESS -> createProduct(image, name, price)
+            CreateStatus.SUCCESS -> createProduct()
         }
     }
 
     @VisibleForTesting
-    fun createProduct(
-        image: String,
-        name: String,
-        price: String,
-    ) = viewModelScope.launch {
-        createProductUseCase(image, name, price)
+    fun createProduct() = viewModelScope.launch {
+        createProductUseCase(product = createProductUiState.value.product)
             .onSuccess {
                 _createProductUiEvent.emit(NavigateToOrder)
             }
